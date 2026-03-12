@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "name": "Sofa Chesterfield Emerald",
+    "price": 8500000,
+    "qty": 5,
+    "description": "Sofa Chesterfield klasik dengan balutan kain velvet berwarna hijau zamrud. Memberikan kesan mewah dan elegan.",
+    "images": [
+      "assets/sofa-hijau.jpg"
+    ]
+  },
+  {
+    "id": "2",
+    "name": "Cabinet TV Minimalis",
+    "price": 3200000,
+    "qty": 12,
+    "description": "Kabinet TV berbahan kayu Jati Belanda.",
+    "images": [
+      "assets/kabinet.jpg"
+    ]
+  }
+]
