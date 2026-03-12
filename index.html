@@ -60,14 +60,20 @@
         .text-transition { transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out; }
         .text-out { opacity: 0; transform: translateY(-10px); }
         .text-in { opacity: 1; transform: translateY(0); }
+
+        /* Toggle Switch Custom */
+        .toggle-checkbox:checked { right: 0; border-color: #D4AF37; }
+        .toggle-checkbox:checked + .toggle-label { background-color: #D4AF37; }
     </style>
 </head>
 <body class="antialiased selection:bg-brand-gold selection:text-white">
 
-    <!-- NAVIGASI UTAMA -->
+    <!-- ============================================== -->
+    <!-- NAVIGASI UTAMA                                 -->
+    <!-- ============================================== -->
     <nav id="main-nav" class="fixed w-full top-0 z-40 glass-nav border-b border-brand-gold/20 transition-all duration-300">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Logo & Brand (Klik 5x di logo untuk Admin) -->
+            <!-- Logo & Brand (Klik 5x di area ini untuk Admin) -->
             <div class="flex items-center gap-4 cursor-pointer select-none group" onclick="handleLogoClick()" title="Casa Curva Studio">
                 <div class="w-12 h-12 rounded-full overflow-hidden border border-brand-gold/50 bg-white p-[2px] relative transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] group-hover:scale-105">
                     <img src="assets/logo.jpg" alt="Casa Curva Logo" class="w-full h-full object-contain rounded-full bg-brand-green" onerror="this.src='https://via.placeholder.com/150/162A20/D4AF37?text=CC'">
@@ -86,14 +92,14 @@
         </div>
     </nav>
 
-    <!-- CONTAINER UTAMA PUBLIK -->
+    <!-- ============================================== -->
+    <!-- CONTAINER UTAMA PUBLIK                         -->
+    <!-- ============================================== -->
     <div id="public-area" class="block pt-20">
         
-        <!-- ============================================== -->
-        <!-- VIEW: BERANDA & KATALOG                        -->
-        <!-- ============================================== -->
+        <!-- ================= VIEW: BERANDA ================= -->
         <div id="view-home" class="block fade-in">
-            <!-- Hero Section Eksklusif dengan Teks Animasi -->
+            <!-- Hero Section -->
             <div class="relative h-[70vh] min-h-[500px] bg-brand-green overflow-hidden">
                 <div class="absolute inset-0">
                     <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Interior Mewah" class="w-full h-full object-cover opacity-30 mix-blend-luminosity transform scale-105 transition-transform duration-[20s] hover:scale-100">
@@ -118,8 +124,6 @@
             <!-- Bagian Filter & Pencarian -->
             <div id="katalog-section" class="bg-white border-b border-gray-100 sticky top-20 z-30 shadow-sm transition-all duration-300">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex flex-col md:flex-row justify-between items-center gap-4">
-                    
-                    <!-- Kategori (Scrollable Horizontal) -->
                     <div class="w-full md:w-auto overflow-x-auto hide-scrollbar flex items-center gap-2 pb-2 md:pb-0" id="category-filters">
                         <button onclick="setCategory('Semua')" class="filter-btn active shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-brand-green text-brand-gold transition-colors">Semua</button>
                         <button onclick="setCategory('Sofa')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Sofa</button>
@@ -127,8 +131,6 @@
                         <button onclick="setCategory('Meja')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Meja</button>
                         <button onclick="setCategory('Dekorasi')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Dekorasi</button>
                     </div>
-
-                    <!-- Kotak Pencarian -->
                     <div class="relative w-full md:w-72 group">
                         <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-brand-gold transition-colors"></i>
                         <input type="text" id="search-input" onkeyup="handleSearch()" placeholder="Cari karya impian Anda..." class="w-full pl-11 pr-4 py-3 bg-brand-soft border border-transparent focus:border-brand-gold/50 focus:bg-white rounded-full text-sm outline-none transition-all shadow-inner">
@@ -136,17 +138,14 @@
                 </div>
             </div>
 
-            <!-- Bagian Grid Katalog -->
+            <!-- Grid Katalog -->
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
                 <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
-                    <!-- Loading State -->
                     <div class="col-span-full text-center py-20 text-brand-gold" id="loading-catalog">
                         <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-4"></i>
                         <p class="text-brand-green font-medium">Menyiapkan koleksi eksklusif untuk Anda...</p>
                     </div>
                 </div>
-
-                <!-- Empty State (Pencarian / Gagal Load) -->
                 <div id="empty-catalog" class="hidden text-center text-gray-400 py-24 fade-in">
                     <i class="fa-light fa-couch text-7xl mb-6 text-brand-gold/50"></i>
                     <h3 class="text-2xl font-serif text-brand-green mb-2">Koleksi Tidak Ditemukan</h3>
@@ -155,14 +154,10 @@
             </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- VIEW: HALAMAN PENUH PRODUK (FULLPAGE DETAIL)   -->
-        <!-- ============================================== -->
+        <!-- ================= VIEW: DETAIL PRODUK ================= -->
         <div id="view-product" class="hidden bg-white min-h-screen pb-24 fade-in">
-            <!-- Tombol Kembali -->
             <div class="bg-brand-soft/50 border-b border-gray-100">
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-                    <!-- Memanggil back() yang terhubung dengan history API HP -->
                     <button onclick="goBack()" class="group flex items-center gap-2 text-brand-green font-medium hover:text-brand-gold transition-colors">
                         <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-1 transition-transform"></i> Kembali ke Koleksi
                     </button>
@@ -171,13 +166,11 @@
 
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
                 <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
-                    
-                    <!-- Kiri: Foto Produk & Lightbox Trigger -->
+                    <!-- Kiri: Foto Produk -->
                     <div class="w-full lg:w-1/2">
                         <div class="sticky top-28 fade-in-up">
                             <div class="rounded-[2rem] overflow-hidden bg-brand-soft aspect-square shadow-xl relative group cursor-pointer" onclick="openLightbox()" title="Klik untuk memperbesar">
-                                <img id="detail-image" src="" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" alt="Furnitur Casa Curva">
-                                <!-- Ikon Expand Transparan -->
+                                <img id="detail-image" src="" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" alt="Furnitur">
                                 <div class="absolute inset-0 bg-black/0 group-hover:bg-black/10 transition-colors flex items-center justify-center">
                                     <div class="w-14 h-14 bg-white/80 backdrop-blur-sm rounded-full flex items-center justify-center text-brand-green opacity-0 group-hover:opacity-100 transition-opacity transform scale-50 group-hover:scale-100 duration-300">
                                         <i class="fa-solid fa-expand text-xl"></i>
@@ -187,32 +180,25 @@
                         </div>
                     </div>
 
-                    <!-- Kanan: Detail & Deskripsi -->
+                    <!-- Kanan: Detail -->
                     <div class="w-full lg:w-1/2 flex flex-col justify-center fade-in-up" style="animation-delay: 0.1s;">
-                        <!-- Badge Tersedia/Habis ditaruh di LUAR FOTO, di atas Nama -->
+                        <!-- Badge Tersedia/Habis di luar foto -->
                         <div id="detail-stock-badge" class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold w-max mb-4 transition-all">
                             <!-- Diisi JS -->
                         </div>
 
                         <span id="detail-category" class="text-brand-gold font-semibold tracking-wider uppercase text-xs mb-3 block">Casa Curva Signature</span>
-                        <h1 id="detail-name" class="text-4xl lg:text-5xl font-serif text-brand-green font-bold leading-tight mb-4 text-balance">
-                            Nama Produk
-                        </h1>
-                        <div id="detail-price" class="text-3xl font-light text-gray-800 mb-8 pb-8 border-b border-gray-200">
-                            Rp 0
-                        </div>
+                        <h1 id="detail-name" class="text-4xl lg:text-5xl font-serif text-brand-green font-bold leading-tight mb-4 text-balance">Nama Produk</h1>
+                        <div id="detail-price" class="text-3xl font-light text-gray-800 mb-8 pb-8 border-b border-gray-200">Rp 0</div>
 
-                        <!-- Deskripsi Panjang -->
                         <div class="prose prose-lg text-gray-600 mb-12">
                             <h3 class="text-xl font-serif text-brand-green font-bold mb-4 flex items-center gap-2">
                                 <i class="fa-solid fa-quote-left text-brand-gold opacity-50 text-sm"></i> Cerita di Balik Karya Ini
                             </h3>
-                            <p id="detail-desc" class="whitespace-pre-line leading-relaxed text-justify text-[15px]">
-                                Deskripsi
-                            </p>
+                            <p id="detail-desc" class="whitespace-pre-line leading-relaxed text-justify text-[15px]"></p>
                         </div>
 
-                        <!-- Area Aksi Keranjang -->
+                        <!-- Aksi -->
                         <div id="detail-action-area" class="bg-brand-soft/50 p-6 md:p-8 rounded-3xl border border-brand-gold/20">
                             <p class="text-sm text-gray-500 font-medium mb-4 uppercase tracking-wider">Tambahkan ke ruang Anda</p>
                             <div class="flex flex-col sm:flex-row gap-4">
@@ -221,13 +207,13 @@
                                     <span id="detail-qty-input" class="w-12 text-center font-bold text-xl select-none text-brand-green">1</span>
                                     <button onclick="changeDetailQty(1)" class="flex-1 h-full text-gray-400 hover:text-brand-green hover:bg-gray-50 transition-colors"><i class="fa-solid fa-plus"></i></button>
                                 </div>
-                                <button onclick="addToCartFromDetail()" class="flex-grow bg-brand-green text-white h-14 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-brand-gold transition-all duration-300 shadow-[0_8px_20px_rgba(22,42,32,0.2)] hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(212,175,55,0.4)]">
+                                <button onclick="addToCartFromDetail()" class="flex-grow bg-brand-green text-white h-14 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-brand-gold transition-all duration-300 shadow-[0_8px_20px_rgba(22,42,32,0.2)] hover:-translate-y-1">
                                     <i class="fa-solid fa-cart-shopping"></i> Masukkan Keranjang
                                 </button>
                             </div>
                         </div>
 
-                        <!-- Tombol Habis -->
+                        <!-- OOS -->
                         <div id="detail-oos-area" class="hidden bg-gray-100 p-6 rounded-3xl text-center border border-gray-200">
                             <i class="fa-solid fa-hourglass-empty text-3xl text-gray-400 mb-3"></i>
                             <h4 class="font-bold text-gray-700">Koleksi Ini Sedang Habis</h4>
@@ -238,9 +224,7 @@
             </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- VIEW: KERANJANG BELANJA                        -->
-        <!-- ============================================== -->
+        <!-- ================= VIEW: KERANJANG ================= -->
         <div id="view-cart" class="hidden bg-brand-soft/30 min-h-screen pb-24 fade-in">
             <div class="bg-brand-green pt-10 pb-20">
                 <div class="max-w-5xl mx-auto px-4">
@@ -264,9 +248,7 @@
                 </div>
 
                 <div id="cart-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-up">
-                    <div class="lg:col-span-2 space-y-4" id="cart-items-container">
-                        <!-- Item Di-render via JS -->
-                    </div>
+                    <div class="lg:col-span-2 space-y-4" id="cart-items-container"></div>
                     <div class="lg:col-span-1">
                         <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 sticky top-28">
                             <h3 class="font-serif text-2xl text-brand-green border-b border-gray-100 pb-4 mb-6">Langkah Terakhir</h3>
@@ -301,7 +283,7 @@
 
 
     <!-- ============================================== -->
-    <!-- MODAL LIGHTBOX (FULLSCREEN IMAGE)              -->
+    <!-- MODAL LIGHTBOX & LOGIN ADMIN                   -->
     <!-- ============================================== -->
     <div id="lightbox-modal" class="hidden fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-10 bg-black/95 backdrop-blur-sm opacity-0 transition-opacity duration-300">
         <button onclick="closeLightbox()" class="absolute top-6 right-6 text-white/50 hover:text-white transition-colors z-10 w-12 h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20">
@@ -312,10 +294,6 @@
         </div>
     </div>
 
-
-    <!-- ============================================== -->
-    <!-- MODAL ADMIN LOGIN (AMANKAN DENGAN API VERCEL)  -->
-    <!-- ============================================== -->
     <div id="admin-login-modal" class="hidden fixed inset-0 z-[110] items-center justify-center p-4 bg-brand-green/95 backdrop-blur-md opacity-0 transition-opacity duration-300">
         <div class="bg-white rounded-[2rem] p-8 md:p-10 max-w-md w-full relative scale-up shadow-2xl">
             <button onclick="closeAdminLogin()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-green transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
@@ -339,7 +317,7 @@
 
 
     <!-- ============================================== -->
-    <!-- AREA ADMIN (BULK JSON GENERATOR + EDIT MODE)   -->
+    <!-- AREA ADMIN (BULK JSON + EDIT + UNLIMITED)      -->
     <!-- ============================================== -->
     <div id="admin-area" class="hidden bg-gray-50 min-h-screen pb-20 fade-in">
         <header class="bg-brand-green text-white sticky top-0 z-30 shadow-md">
@@ -355,7 +333,7 @@
         </header>
 
         <div class="max-w-7xl mx-auto px-4 mt-8 grid grid-cols-1 xl:grid-cols-12 gap-8">
-            <!-- Form Input -->
+            <!-- Form Input Admin -->
             <div class="xl:col-span-4 relative">
                 <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 sticky top-24" id="form-container">
                     <h2 class="text-xl font-bold text-brand-green mb-6 border-b border-gray-100 pb-4 flex items-center gap-2" id="form-title">
@@ -366,35 +344,48 @@
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Nama Furnitur</label>
                             <input type="text" id="p-name" placeholder="Sofa Emerald Modern..." required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all">
                         </div>
-                        <div>
-                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Kategori</label>
-                            <select id="p-category" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all text-sm font-medium">
-                                <option value="Sofa">Sofa</option>
-                                <option value="Kabinet">Kabinet</option>
-                                <option value="Meja">Meja</option>
-                                <option value="Dekorasi">Dekorasi</option>
-                                <option value="Lainnya">Lainnya</option>
-                            </select>
-                        </div>
                         <div class="grid grid-cols-2 gap-4">
                             <div>
-                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Harga (Rp)</label>
-                                <input type="number" id="p-price" placeholder="Misal: 8500000" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono">
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Kategori</label>
+                                <select id="p-category" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all text-sm font-medium text-gray-700">
+                                    <option value="Sofa">Sofa</option>
+                                    <option value="Kabinet">Kabinet</option>
+                                    <option value="Meja">Meja</option>
+                                    <option value="Dekorasi">Dekorasi</option>
+                                    <option value="Lainnya">Lainnya</option>
+                                </select>
                             </div>
                             <div>
-                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Stok Tersedia</label>
-                                <input type="number" id="p-qty" placeholder="Misal: 5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono">
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Harga (Rp)</label>
+                                <input type="number" id="p-price" placeholder="8500000" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono">
                             </div>
                         </div>
+
+                        <!-- Opsi Stok Tak Terbatas -->
+                        <div class="bg-brand-soft/50 p-4 rounded-xl border border-gray-100">
+                            <div class="flex items-center justify-between mb-3">
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider">Stok Tersedia</label>
+                                <label class="flex items-center cursor-pointer">
+                                    <div class="relative">
+                                        <input type="checkbox" id="p-unlimited" class="sr-only" onchange="toggleUnlimitedUI()">
+                                        <div class="block bg-gray-300 w-10 h-6 rounded-full transition-colors duration-300" id="toggle-bg"></div>
+                                        <div class="dot absolute left-1 top-1 bg-white w-4 h-4 rounded-full transition-transform duration-300" id="toggle-dot"></div>
+                                    </div>
+                                    <span class="ml-2 text-xs font-bold text-brand-green">Tak Terbatas</span>
+                                </label>
+                            </div>
+                            <input type="number" id="p-qty" placeholder="Misal: 5" required class="w-full px-4 py-3 bg-white border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed">
+                        </div>
+
                         <div>
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Cerita/Deskripsi Lengkap</label>
-                            <textarea id="p-desc" placeholder="Jelaskan kemewahan dan material produk ini..." required rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all resize-none"></textarea>
+                            <textarea id="p-desc" placeholder="Jelaskan kemewahan produk ini..." required rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all resize-none"></textarea>
                         </div>
                         <div>
                             <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Nama File Foto di GitHub</label>
                             <div class="relative">
                                 <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-mono text-sm">assets/</span>
-                                <input type="text" id="p-image-name" placeholder="sofa-baru.jpg" required class="w-full pl-20 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono text-sm text-brand-green font-medium">
+                                <input type="text" id="p-image-name" placeholder="sofa.jpg" required class="w-full pl-20 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono text-sm text-brand-green font-medium">
                             </div>
                         </div>
                         
@@ -408,7 +399,7 @@
                 </div>
             </div>
 
-            <!-- List Draft & Download -->
+            <!-- List Draft Admin -->
             <div class="xl:col-span-8">
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full min-h-[500px]">
                     <div class="p-6 bg-gray-50 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
@@ -430,6 +421,7 @@
                                     <th class="p-4 font-semibold w-12 text-center">No</th>
                                     <th class="p-4 font-semibold">Produk & Kategori</th>
                                     <th class="p-4 font-semibold">Harga</th>
+                                    <th class="p-4 font-semibold text-center">Stok</th>
                                     <th class="p-4 font-semibold text-center">Aksi</th>
                                 </tr>
                             </thead>
@@ -441,9 +433,8 @@
         </div>
     </div>
 
-
     <!-- ===================================================================== -->
-    <!-- LOGIKA JAVASCRIPT UTAMA                                               -->
+    <!-- LOGIKA JAVASCRIPT UTAMA (100% CLEAN & BERFUNGSI)                      -->
     <!-- ===================================================================== -->
     <script>
         const formatRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
@@ -454,11 +445,9 @@
         let draftProducts = JSON.parse(localStorage.getItem('casacurva_draft')) || [];
         let currentDetailProduct = null;
         let editingDraftIndex = -1; 
-        
         let currentCategory = 'Semua';
 
-        // --- Efek Suara (Ting / Elegan) ---
-        // Menggunakan Web Audio API, super ringan, tidak butuh file external, bunyi sangat mulus.
+        // --- Efek Suara (Web Audio API) ---
         function playPremiumSound() {
             try {
                 const ctx = new (window.AudioContext || window.webkitAudioContext)();
@@ -466,20 +455,14 @@
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.type = 'sine';
-                    osc.frequency.value = freq;
-                    // Envelope (Animasi suara halus)
+                    osc.type = 'sine'; osc.frequency.value = freq;
                     gain.gain.setValueAtTime(0, ctx.currentTime + timeOffset);
                     gain.gain.linearRampToValueAtTime(0.1, ctx.currentTime + timeOffset + 0.02);
                     gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + timeOffset + 0.6);
-                    osc.start(ctx.currentTime + timeOffset);
-                    osc.stop(ctx.currentTime + timeOffset + 0.6);
+                    osc.start(ctx.currentTime + timeOffset); osc.stop(ctx.currentTime + timeOffset + 0.6);
                 };
-                // Memainkan Chord arpeggio manis (C Major cepat)
-                playNote(523.25, 0);     // C5
-                playNote(659.25, 0.04);  // E5
-                playNote(1046.50, 0.08); // C6
-            } catch(e) { console.log("Audio API tidak didukung"); }
+                playNote(523.25, 0); playNote(659.25, 0.04); playNote(1046.50, 0.08); // Chord C-Major
+            } catch(e) {}
         }
 
         // --- Teks Hero Dinamis ---
@@ -493,25 +476,26 @@
                 phraseIndex = (phraseIndex + 1) % heroPhrases.length;
                 el.innerText = heroPhrases[phraseIndex];
                 el.classList.replace('text-out', 'text-in');
-            }, 500); // Sinkronkan dengan CSS transition duration
+            }, 500); 
         }, 3500);
 
-
-        // --- Init Data ---
+        // --- Init & Fetch Data ---
         async function fetchProducts() {
             try {
                 const response = await fetch('./data.json');
                 if (!response.ok) throw new Error('File tidak ditemukan');
                 products = await response.json();
                 
-                // Set default kategori jika tidak ada di JSON lama
-                products = products.map(p => ({...p, category: p.category || 'Lainnya'}));
+                // Set default kategori & unlimited property jika tidak ada di JSON lama
+                products = products.map(p => ({
+                    ...p, 
+                    category: p.category || 'Lainnya',
+                    unlimited: p.unlimited === true || p.qty === -1
+                }));
                 filteredProducts = [...products];
 
                 document.getElementById('loading-catalog').classList.add('hidden');
-                renderHome();
-                renderCart();
-                updateCartBadge();
+                renderHome(); renderCart(); updateCartBadge();
             } catch (error) {
                 document.getElementById('loading-catalog').classList.add('hidden');
                 document.getElementById('empty-catalog').classList.remove('hidden');
@@ -521,50 +505,35 @@
         document.addEventListener('DOMContentLoaded', () => {
             fetchProducts();
             renderDraftList();
-            
-            // Set initial history state
             window.history.replaceState({ view: 'home' }, "", "#home");
-            
-            // Tutup lightbox jika klik di luar gambar
             document.getElementById('lightbox-modal').addEventListener('click', closeLightbox);
         });
 
-        // --- Navigasi dengan Hardware Back Button (History API) ---
+        // --- Navigasi (History API) ---
         window.addEventListener('popstate', (event) => {
-            // Cek apakah ada Modal Lightbox Terbuka, tutup dulu tanpa mundur halaman
             const lightbox = document.getElementById('lightbox-modal');
             if(!lightbox.classList.contains('hidden')) {
                 closeLightbox();
                 window.history.pushState({ view: 'product' }, "", `#product`);
                 return;
             }
-            // Cek apakah ada Modal Admin terbuka
             const adminModal = document.getElementById('admin-login-modal');
             if(!adminModal.classList.contains('hidden')) {
                 closeAdminLogin();
                 window.history.pushState(event.state, "", window.location.hash);
                 return;
             }
-
-            if (event.state && event.state.view) {
-                renderViewDirectly(event.state.view);
-            } else {
-                renderViewDirectly('home');
-            }
+            if (event.state && event.state.view) { renderViewDirectly(event.state.view); } 
+            else { renderViewDirectly('home'); }
         });
 
-        // Dipanggil oleh tombol UI
         function showPublicView(view) {
             window.history.pushState({ view: view }, "", `#${view}`);
             renderViewDirectly(view);
         }
 
-        // Dipanggil oleh tombol Kembali
-        function goBack() {
-            window.history.back(); // Akan men-trigger popstate
-        }
+        function goBack() { window.history.back(); }
 
-        // Eksekusi perubahan DOM
         function renderViewDirectly(view) {
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-product').classList.add('hidden');
@@ -573,13 +542,10 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-
-        // --- FILTER & PENCARIAN ---
+        // --- FILTER ---
         function setCategory(cat) {
             currentCategory = cat;
-            // Update UI Button active state
-            const buttons = document.querySelectorAll('#category-filters button');
-            buttons.forEach(btn => {
+            document.querySelectorAll('#category-filters button').forEach(btn => {
                 if(btn.innerText === cat) {
                     btn.classList.add('bg-brand-green', 'text-brand-gold', 'font-bold');
                     btn.classList.remove('bg-brand-soft', 'text-gray-600', 'font-medium');
@@ -593,38 +559,31 @@
 
         function handleSearch() {
             const query = document.getElementById('search-input').value.toLowerCase();
-            
             filteredProducts = products.filter(p => {
                 const matchName = p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
                 const matchCat = currentCategory === 'Semua' || p.category === currentCategory;
                 return matchName && matchCat;
             });
-            
             renderHome();
         }
-
 
         // --- Render Katalog (Beranda) ---
         function renderHome() {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
             
-            if(filteredProducts.length > 0) {
-                document.getElementById('empty-catalog').classList.add('hidden');
-            } else {
-                document.getElementById('empty-catalog').classList.remove('hidden');
-                return;
-            }
+            if(filteredProducts.length > 0) { document.getElementById('empty-catalog').classList.add('hidden'); } 
+            else { document.getElementById('empty-catalog').classList.remove('hidden'); return; }
 
             filteredProducts.forEach((p, index) => {
                 const img = p.images?.[0] || 'https://via.placeholder.com/800?text=Casa+Curva';
-                const delay = index * 0.05; // Lebih cepat agar tidak menunggu lama
+                const isOOS = !p.unlimited && p.qty <= 0;
                 
                 grid.innerHTML += `
-                    <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(22,42,32,0.08)] transition-all duration-500 cursor-pointer group fade-in-up" style="animation-delay: ${delay}s" onclick="openProductDetail('${p.id}')">
+                    <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(22,42,32,0.08)] transition-all duration-500 cursor-pointer group fade-in-up" style="animation-delay: ${index * 0.05}s" onclick="openProductDetail('${p.id}')">
                         <div class="relative h-72 overflow-hidden bg-brand-soft">
                             <img src="${img}" class="w-full h-full object-cover transition-transform duration-[1.5s] group-hover:scale-110" loading="lazy" onerror="this.src='https://via.placeholder.com/800?text=Gambar+Tertunda'">
-                            ${p.qty <= 0 ? `<div class="absolute inset-0 bg-white/40 backdrop-blur-[2px] flex items-center justify-center"><span class="bg-brand-dark text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase shadow-lg">Habis Terjual</span></div>` : ''}
+                            ${isOOS ? `<div class="absolute inset-0 bg-white/40 backdrop-blur-[2px] flex items-center justify-center"><span class="bg-brand-dark text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase shadow-lg">Habis Terjual</span></div>` : ''}
                         </div>
                         <div class="p-8 flex flex-col justify-between">
                             <div class="mb-4">
@@ -643,14 +602,12 @@
             });
         }
 
-
         // --- FULLPAGE PRODUCT DETAIL ---
         function openProductDetail(id) {
             currentDetailProduct = products.find(p => p.id === id);
             if(!currentDetailProduct) return;
             currentDetailQty = 1;
             
-            // Set Konten
             document.getElementById('detail-name').innerText = currentDetailProduct.name;
             document.getElementById('detail-category').innerText = currentDetailProduct.category || "Signature Casa Curva";
             document.getElementById('detail-price').innerText = formatRupiah(currentDetailProduct.price);
@@ -658,83 +615,74 @@
             document.getElementById('detail-image').src = currentDetailProduct.images?.[0] || '';
             document.getElementById('detail-qty-input').innerText = currentDetailQty;
             
-            // Set Status & Tombol (Posisi sekarang DI LUAR foto, di atas Nama)
             const badge = document.getElementById('detail-stock-badge');
             const actionArea = document.getElementById('detail-action-area');
             const oosArea = document.getElementById('detail-oos-area');
 
-            if(currentDetailProduct.qty > 0) {
+            if(currentDetailProduct.unlimited) {
+                badge.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold w-max mb-4 bg-green-50 border border-green-200 text-green-700";
+                badge.innerHTML = `<i class="fa-solid fa-check-circle"></i> Tersedia`;
+                actionArea.classList.remove('hidden'); oosArea.classList.add('hidden');
+            }
+            else if(currentDetailProduct.qty > 0) {
                 badge.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold w-max mb-4 bg-green-50 border border-green-200 text-green-700";
                 badge.innerHTML = `<i class="fa-solid fa-check-circle"></i> Tersedia ${currentDetailProduct.qty} unit`;
-                actionArea.classList.remove('hidden');
-                oosArea.classList.add('hidden');
-            } else {
+                actionArea.classList.remove('hidden'); oosArea.classList.add('hidden');
+            } 
+            else {
                 badge.className = "inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-bold w-max mb-4 bg-brand-dark text-brand-gold";
                 badge.innerHTML = `<i class="fa-solid fa-ban"></i> Habis Terjual`;
-                actionArea.classList.add('hidden');
-                oosArea.classList.remove('hidden');
+                actionArea.classList.add('hidden'); oosArea.classList.remove('hidden');
             }
 
             showPublicView('product');
         }
 
-        // --- LIGHTBOX LOGIC ---
+        // --- LIGHTBOX ---
         function openLightbox() {
+            document.getElementById('lightbox-image').src = currentDetailProduct.images?.[0] || '';
             const modal = document.getElementById('lightbox-modal');
-            const img = document.getElementById('lightbox-image');
-            img.src = currentDetailProduct.images?.[0] || '';
-            
             modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
-            document.body.style.overflow = 'hidden'; // Kunci scroll belakang
+            document.body.style.overflow = 'hidden';
         }
-
         function closeLightbox() {
             const modal = document.getElementById('lightbox-modal');
             modal.classList.add('opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                document.body.style.overflow = ''; 
-            }, 300);
+            setTimeout(() => { modal.classList.add('hidden'); document.body.style.overflow = ''; }, 300);
         }
-
 
         function changeDetailQty(change) {
             let newQty = currentDetailQty + change;
-            if(newQty >= 1 && newQty <= currentDetailProduct.qty) {
-                currentDetailQty = newQty;
-                document.getElementById('detail-qty-input').innerText = currentDetailQty;
+            if(newQty >= 1) {
+                if (currentDetailProduct.unlimited || newQty <= currentDetailProduct.qty) {
+                    currentDetailQty = newQty;
+                    document.getElementById('detail-qty-input').innerText = currentDetailQty;
+                }
             }
         }
 
         function addToCartFromDetail() {
             if(!currentDetailProduct) return;
             addToCart(currentDetailProduct, currentDetailQty);
-            
-            playPremiumSound(); // Mainkan Suara Estetik
-
-            // Animasi manis ke tombol keranjang di atas
+            playPremiumSound(); 
             const navBtn = document.querySelector('nav button');
             navBtn.classList.add('text-brand-gold', 'scale-[1.3]');
             setTimeout(() => navBtn.classList.remove('text-brand-gold', 'scale-[1.3]'), 400);
-            
-            goBack(); // Otomatis kembali sesuai history API
+            goBack(); 
         }
 
         // --- CART LOGIC ---
         function addToCart(product, quantity) {
             const ex = cart.find(i => i.id === product.id);
             if(ex) {
-                if (ex.qty + quantity > product.qty) {
+                if (!product.unlimited && ex.qty + quantity > product.qty) {
                     alert(`Maaf, sisa stok koleksi ini hanya ${product.qty} unit.`);
                     ex.qty = product.qty;
                 } else { ex.qty += quantity; }
-            } else {
-                cart.push({...product, qty: quantity});
-            }
+            } else { cart.push({...product, qty: quantity}); }
             localStorage.setItem('casacurva_cart', JSON.stringify(cart));
-            renderCart(); 
-            updateCartBadge();
+            renderCart(); updateCartBadge();
         }
 
         function removeFromCart(id) {
@@ -762,7 +710,6 @@
             document.getElementById('cart-content').classList.add('grid');
             
             cont.innerHTML = ''; 
-            
             cart.forEach((item, index) => {
                 const dbProduct = products.find(p => p.id === item.id) || item; 
                 const img = dbProduct.images?.[0] || 'https://via.placeholder.com/200';
@@ -785,30 +732,39 @@
             });
         }
 
-        // Checkout Manis (Permintaan khusus)
         function checkoutWA() {
             if(cart.length === 0) return;
-            
             let msg = "Halo Tim Casa Curva, saya sangat tertarik dengan koleksi furnitur Anda yang elegan! ✨\n\nBerikut karya yang ingin saya pesan:\n\n";
-            
             cart.forEach((item) => {
                 const dbProduct = products.find(p => p.id === item.id) || item;
-                msg += `🛋️ *${dbProduct.name}*\n`;
-                msg += `   💰 Harga: ${formatRupiah(dbProduct.price)}\n`;
-                msg += `   📦 Jumlah: ${item.qty} unit\n\n`;
+                msg += `🛋️ *${dbProduct.name}*\n   💰 Harga: ${formatRupiah(dbProduct.price)}\n   📦 Jumlah: ${item.qty} unit\n\n`;
             });
-            
             msg += "Mohon bantuannya untuk informasi lebih lanjut mengenai ketersediaan stok dan proses pengirimannya ya. Terima kasih banyak! 🌟";
-            
-            const waNum = "6283825770066";
-            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
+            window.open(`https://wa.me/6283825770066?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
+        // =====================================================================
+        // ADMIN LOGIN (Satu Fungsi Utuh, Tidak Ada Duplikat)
+        // =====================================================================
+        let clickCountAdmin = 0; let clickTimerAdmin = null;
+        function handleLogoClick() {
+            clickCountAdmin++;
+            if(clickTimerAdmin) clearTimeout(clickTimerAdmin);
+            if (clickCountAdmin >= 5) {
+                clickCountAdmin = 0;
+                document.getElementById('admin-password').value = '';
+                document.getElementById('login-error').classList.add('hidden');
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+                setTimeout(() => document.getElementById('admin-login-modal').classList.remove('opacity-0'), 10);
+            } else {
+                clickTimerAdmin = setTimeout(() => { clickCountAdmin = 0; }, 2000);
+            }
+        }
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('opacity-0');
+            setTimeout(() => document.getElementById('admin-login-modal').classList.add('hidden'), 300);
+        }
 
-        // =====================================================================
-        // ADMIN LOGIN & BULK JSON GENERATOR
-        // =====================================================================
-        
         async function handleLoginSubmit(e) {
             e.preventDefault();
             const inputSandi = document.getElementById('admin-password').value;
@@ -838,7 +794,7 @@
                     errorText.classList.remove('hidden'); 
                 }
             } catch (err) {
-                // FALLBACK JIKA LOKAL
+                // FALLBACK LOKAL
                 if(inputSandi === 'santai123') {
                     closeAdminLogin();
                     document.getElementById('public-area').classList.add('hidden');
@@ -859,11 +815,31 @@
             document.getElementById('admin-area').classList.add('hidden');
             document.getElementById('public-area').classList.remove('hidden');
             document.getElementById('main-nav').classList.remove('hidden');
-            cancelEdit(); 
-            window.scrollTo(0,0);
+            cancelEdit(); window.scrollTo(0,0);
         }
 
-        // --- BULK JSON DRAFT LOGIC ---
+        // =====================================================================
+        // ADMIN DRAFT: UNLIMITED STOCK & JSON LOGIC
+        // =====================================================================
+        
+        function toggleUnlimitedUI() {
+            const isUnlimited = document.getElementById('p-unlimited').checked;
+            const qtyInput = document.getElementById('p-qty');
+            const bg = document.getElementById('toggle-bg');
+            const dot = document.getElementById('toggle-dot');
+            
+            if(isUnlimited) {
+                qtyInput.disabled = true;
+                qtyInput.value = '';
+                bg.classList.replace('bg-gray-300', 'bg-brand-gold');
+                dot.classList.add('translate-x-4');
+            } else {
+                qtyInput.disabled = false;
+                bg.classList.replace('bg-brand-gold', 'bg-gray-300');
+                dot.classList.remove('translate-x-4');
+            }
+        }
+
         function saveDraftToLocal() {
             localStorage.setItem('casacurva_draft', JSON.stringify(draftProducts));
             renderDraftList();
@@ -874,21 +850,21 @@
             const name = document.getElementById('p-name').value;
             const cat = document.getElementById('p-category').value;
             const price = parseInt(document.getElementById('p-price').value);
-            const qty = parseInt(document.getElementById('p-qty').value);
+            const isUnlimited = document.getElementById('p-unlimited').checked;
+            const qty = isUnlimited ? -1 : parseInt(document.getElementById('p-qty').value);
             const desc = document.getElementById('p-desc').value;
             const rawImageName = document.getElementById('p-image-name').value.trim();
-            
             const finalImageName = rawImageName.startsWith("assets/") ? rawImageName : "assets/" + rawImageName;
 
             if (editingDraftIndex >= 0) {
                 draftProducts[editingDraftIndex] = {
                     ...draftProducts[editingDraftIndex],
-                    name, category: cat, price, qty, description: desc, images: [finalImageName]
+                    name, category: cat, price, qty, unlimited: isUnlimited, description: desc, images: [finalImageName]
                 };
             } else {
                 draftProducts.push({
                     id: Date.now().toString(),
-                    name, category: cat, price, qty, description: desc, images: [finalImageName]
+                    name, category: cat, price, qty, unlimited: isUnlimited, description: desc, images: [finalImageName]
                 });
             }
 
@@ -903,7 +879,9 @@
             setTimeout(() => { resetFormUI(); btn.classList.remove('bg-green-600'); }, 1500);
 
             e.target.reset();
-            document.getElementById('p-category').value = 'Sofa'; // reset dropdown
+            document.getElementById('p-category').value = 'Sofa'; 
+            document.getElementById('p-unlimited').checked = false;
+            toggleUnlimitedUI(); // Reset toggle UI
             editingDraftIndex = -1;
         }
 
@@ -914,15 +892,18 @@
             document.getElementById('p-name').value = item.name;
             document.getElementById('p-category').value = item.category || 'Sofa';
             document.getElementById('p-price').value = item.price;
-            document.getElementById('p-qty').value = item.qty;
             document.getElementById('p-desc').value = item.description;
+            
+            const isUnl = item.unlimited || item.qty === -1;
+            document.getElementById('p-unlimited').checked = isUnl;
+            toggleUnlimitedUI();
+            if(!isUnl) document.getElementById('p-qty').value = item.qty;
             
             let imgName = item.images[0] || "";
             if(imgName.startsWith("assets/")) imgName = imgName.substring(7);
             document.getElementById('p-image-name').value = imgName;
 
             document.getElementById('form-title').innerHTML = `<i class="fa-solid fa-pen-nib text-brand-gold"></i> Edit Produk`;
-            
             const btnSubmit = document.getElementById('submit-draft-btn');
             btnSubmit.innerHTML = `<i class="fa-solid fa-save"></i> Update Draft`;
             btnSubmit.classList.replace('bg-brand-green', 'bg-brand-gold');
@@ -930,7 +911,6 @@
             
             document.getElementById('cancel-edit-btn').classList.remove('hidden');
             document.getElementById('cancel-edit-btn').classList.add('block');
-
             document.getElementById('form-container').scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
@@ -938,6 +918,8 @@
             editingDraftIndex = -1;
             document.getElementById('draft-form').reset();
             document.getElementById('p-category').value = 'Sofa';
+            document.getElementById('p-unlimited').checked = false;
+            toggleUnlimitedUI();
             resetFormUI();
         }
 
@@ -961,6 +943,7 @@
             draftProducts.forEach((item, index) => {
                 const isEditing = editingDraftIndex === index;
                 const rowClass = isEditing ? "bg-brand-gold/10 border-brand-gold/30" : "hover:bg-brand-soft/30 border-gray-50";
+                const isUnl = item.unlimited || item.qty === -1;
 
                 tbody.innerHTML += `
                     <tr class="border-b transition-colors ${rowClass}">
@@ -973,6 +956,12 @@
                             </div>
                         </td>
                         <td class="p-4 text-sm font-medium text-gray-700">${formatRupiah(item.price)}</td>
+                        <td class="p-4 text-center">
+                            ${isUnl 
+                                ? `<span class="inline-block bg-brand-green/10 text-brand-green px-3 py-1 rounded text-[10px] font-bold uppercase tracking-widest"><i class="fa-solid fa-infinity"></i> Unlimited</span>` 
+                                : `<span class="inline-block bg-gray-100 px-3 py-1 rounded text-xs font-bold text-gray-600">${item.qty}</span>`
+                            }
+                        </td>
                         <td class="p-4 text-center">
                             <div class="flex items-center justify-center gap-2">
                                 <button onclick="editDraft(${index})" class="text-blue-500 hover:bg-blue-50 hover:text-blue-700 w-8 h-8 rounded-lg transition-colors flex items-center justify-center" title="Edit Draft">
