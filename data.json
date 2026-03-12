@@ -1,12 +1,12 @@
 [
   {
     "id": "1",
-    "name": "Sofa Chesterfield Emerald",
+    "name": "kursi Chesterfield Emerald",
     "price": 8500000,
     "qty": 5,
-    "description": "Sofa Chesterfield klasik dengan balutan kain velvet berwarna hijau zamrud. Memberikan kesan mewah dan elegan.",
+    "description": "kursi Chesterfield klasik dengan balutan kain velvet berwarna hijau zamrud. Memberikan kesan mewah dan elegan.",
     "images": [
-      "assets/0312261804.jpg"
+      "assets/kursi.jpg"
     ]
   },
   {
@@ -16,7 +16,7 @@
     "qty": 12,
     "description": "Kabinet TV berbahan kayu Jati Belanda.",
     "images": [
-      "assets/kabinet.jpg"
+      "assets/lemari.jpg"
     ]
   }
 ]
