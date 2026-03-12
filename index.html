@@ -3,310 +3,488 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Casa Curva | Sofa & Cabinet Studio</title>
+    <title>Casa Curva | Eksklusivitas dalam Setiap Sudut Ruang</title>
     
+    <!-- Typography & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: { green: '#162A20', gold: '#D4AF37', light: '#F9F7F3', dark: '#0f1d16' }
+                        brand: { green: '#162A20', gold: '#D4AF37', light: '#FDFBF7', dark: '#0c1711', soft: '#F4EFE6' }
                     },
                     fontFamily: {
-                        serif: ['"Playfair Display"', 'serif'], sans: ['Inter', 'sans-serif'],
+                        serif: ['"Playfair Display"', 'serif'], 
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #F9F7F3; overflow-x: hidden; }
+        body { font-family: '"Plus Jakarta Sans"', sans-serif; background-color: #FDFBF7; overflow-x: hidden; color: #333; }
         .font-serif { font-family: '"Playfair Display"', serif; }
-        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
-        .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
-        .scale-up { animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        
+        /* Smooth Animations */
+        .fade-in { animation: fadeIn 0.5s ease-out forwards; }
+        .fade-in-up { animation: fadeInUp 0.7s ease-out forwards; }
+        .slide-in-right { animation: slideInRight 0.4s ease-out forwards; }
+        
         @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInRight { from { opacity: 0; transform: translateX(50px); } to { opacity: 1; transform: translateX(0); } }
+        
+        /* Refined Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
         ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
-        .hide-scrollbar::-webkit-scrollbar { display: none; }
-        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+        ::-webkit-scrollbar-thumb:hover { background: #162A20; }
+        
+        /* Utility */
+        .glass-nav { background: rgba(22, 42, 32, 0.95); backdrop-filter: blur(10px); }
+        .text-balance { text-wrap: balance; }
     </style>
 </head>
-<body class="text-gray-800 antialiased">
+<body class="antialiased selection:bg-brand-gold selection:text-white">
 
-    <!-- AREA PUBLIK -->
-    <div id="public-area" class="block">
-        <nav class="sticky top-0 z-40 bg-brand-green/95 backdrop-blur-md border-b border-brand-gold/20 shadow-lg">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-                <!-- Area Rahasia (Klik 5x) -->
-                <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="handleLogoClick()" title="Casa Curva Studio">
-                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold bg-white p-0.5 relative transition-transform group-hover:scale-105 shadow-md">
-                        <img src="assets/logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-full bg-brand-green" onerror="this.src='https://via.placeholder.com/150/162A20/D4AF37?text=CC'">
-                    </div>
-                    <div class="flex flex-col">
-                        <span class="font-serif text-2xl font-bold text-white tracking-wide leading-none">Casa<span class="text-brand-gold">Curva</span></span>
-                    </div>
+    <!-- NAVIGASI UTAMA -->
+    <nav id="main-nav" class="fixed w-full top-0 z-50 glass-nav border-b border-brand-gold/20 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Logo & Brand (Klik 5x di logo untuk Admin) -->
+            <div class="flex items-center gap-4 cursor-pointer select-none group" onclick="handleLogoClick()" title="Casa Curva Studio">
+                <div class="w-12 h-12 rounded-full overflow-hidden border border-brand-gold/50 bg-white p-[2px] relative transition-all duration-500 group-hover:shadow-[0_0_15px_rgba(212,175,55,0.4)] group-hover:scale-105">
+                    <img src="assets/logo.jpg" alt="Casa Curva Logo" class="w-full h-full object-contain rounded-full bg-brand-green" onerror="this.src='https://via.placeholder.com/150/162A20/D4AF37?text=CC'">
                 </div>
-                <button onclick="showPublicView('cart')" class="relative p-2 text-white hover:text-brand-gold transition-colors">
-                    <i class="fa-solid fa-bag-shopping text-2xl"></i>
-                    <span id="cart-badge" class="absolute top-0 right-0 -mt-1 -mr-1 bg-brand-gold text-brand-green font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center hidden shadow-md">0</span>
-                </button>
+                <div class="flex flex-col">
+                    <span class="font-serif text-2xl font-bold text-white tracking-wide leading-none">Casa<span class="text-brand-gold font-style: italic">Curva</span></span>
+                    <span class="text-[9px] text-brand-gold/80 uppercase tracking-[0.2em] mt-1 font-medium">Sofa & Cabinet Studio</span>
+                </div>
             </div>
-        </nav>
+            
+            <!-- Keranjang -->
+            <button onclick="showPublicView('cart')" class="relative p-2 text-brand-soft hover:text-brand-gold transition-colors duration-300 group">
+                <i class="fa-solid fa-bag-shopping text-2xl group-hover:-translate-y-1 transition-transform"></i>
+                <span id="cart-badge" class="absolute top-0 right-0 -mt-1 -mr-1 bg-brand-gold text-brand-green font-bold text-[10px] w-5 h-5 rounded-full flex items-center justify-center hidden shadow-lg border border-brand-green">0</span>
+            </button>
+        </div>
+    </nav>
 
+    <!-- CONTAINER UTAMA PUBLIK -->
+    <div id="public-area" class="block pt-20">
+        
+        <!-- ============================================== -->
+        <!-- VIEW: BERANDA & KATALOG                        -->
+        <!-- ============================================== -->
         <div id="view-home" class="block fade-in">
-            <div class="relative h-[60vh] bg-brand-green overflow-hidden">
-                <div class="absolute inset-0 bg-gradient-to-t from-brand-green to-transparent z-10"></div>
-                <div class="relative h-full flex flex-col items-center justify-center text-center px-4 fade-in-up z-20">
-                    <h1 class="text-4xl md:text-6xl font-serif text-white mb-4 drop-shadow-lg">Elegansi di Setiap <span class="text-brand-gold italic">Sudut</span></h1>
-                    <a href="#katalog" class="bg-brand-gold text-brand-green px-8 py-3 rounded-full font-semibold hover:bg-white hover:scale-105 transition-all shadow-xl mt-8">Lihat Koleksi</a>
+            <!-- Hero Section Eksklusif -->
+            <div class="relative h-[70vh] min-h-[500px] bg-brand-green overflow-hidden">
+                <div class="absolute inset-0">
+                    <img src="https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" alt="Interior Mewah" class="w-full h-full object-cover opacity-30 mix-blend-luminosity">
+                </div>
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-green via-brand-green/80 to-transparent"></div>
+                
+                <div class="relative h-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-center items-center text-center fade-in-up">
+                    <span class="text-brand-gold text-sm font-semibold tracking-widest uppercase mb-4">Koleksi Mahakarya</span>
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-6 leading-tight text-balance">
+                        Keanggunan yang <br><span class="text-brand-gold italic">Berbicara</span>
+                    </h1>
+                    <p class="text-brand-soft/80 max-w-2xl text-lg md:text-xl font-light mb-10 text-balance leading-relaxed">
+                        Hadirkan sentuhan personal yang mewah ke dalam hunian Anda. Setiap detail dirancang untuk memberikan kenyamanan tanpa mengorbankan estetika.
+                    </p>
+                    <button onclick="document.getElementById('katalog').scrollIntoView({behavior:'smooth'})" class="group bg-brand-gold text-brand-green px-8 py-4 rounded-full font-semibold text-sm uppercase tracking-wider hover:bg-white transition-all duration-300 shadow-[0_10px_30px_rgba(212,175,55,0.3)] flex items-center gap-3 hover:-translate-y-1">
+                        Jelajahi Koleksi <i class="fa-solid fa-arrow-down group-hover:animate-bounce"></i>
+                    </button>
                 </div>
             </div>
 
-            <div id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+            <!-- Bagian Katalog -->
+            <div id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
                 <div class="text-center mb-16 fade-in-up">
-                    <h2 class="text-3xl font-serif text-brand-green mb-3">Katalog Eksklusif</h2>
-                    <div class="w-24 h-1 bg-brand-gold mx-auto rounded-full"></div>
+                    <h2 class="text-3xl md:text-4xl font-serif text-brand-green mb-4">Karya Pilihan Kami</h2>
+                    <p class="text-gray-500 max-w-2xl mx-auto">Temukan furnitur yang tidak hanya mengisi ruang, tetapi juga menghidupkan suasana rumah Anda.</p>
                 </div>
-                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-                    <div class="col-span-full text-center py-10 text-gray-400" id="loading-catalog">
-                        <i class="fa-solid fa-circle-notch fa-spin text-4xl mb-3 text-brand-gold"></i>
-                        <p>Mengambil data dari data.json...</p>
+
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10">
+                    <!-- Loading State -->
+                    <div class="col-span-full text-center py-20 text-brand-gold" id="loading-catalog">
+                        <i class="fa-solid fa-circle-notch fa-spin text-5xl mb-4"></i>
+                        <p class="text-brand-green font-medium">Menyiapkan koleksi eksklusif untuk Anda...</p>
                     </div>
                 </div>
-                <div id="empty-catalog" class="hidden text-center text-gray-500 py-20">
-                    <i class="fa-solid fa-box-open text-6xl mb-4 text-gray-300"></i>
-                    <h3 class="text-xl font-medium">Katalog masih kosong</h3>
+
+                <!-- Empty State -->
+                <div id="empty-catalog" class="hidden text-center text-gray-400 py-24 fade-in">
+                    <i class="fa-light fa-couch text-7xl mb-6 text-brand-gold/50"></i>
+                    <h3 class="text-2xl font-serif text-brand-green mb-2">Koleksi Sedang Disempurnakan</h3>
+                    <p>Kami sedang menyiapkan katalog terbaik kami. Silakan kembali beberapa saat lagi.</p>
                 </div>
             </div>
         </div>
 
-        <div id="view-cart" class="hidden bg-brand-light py-12 px-4 sm:px-6 lg:px-8 min-h-screen fade-in">
-            <div class="max-w-5xl mx-auto">
-                <button onclick="showPublicView('home')" class="mb-8 font-medium text-gray-600 hover:text-brand-green"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
-                <h2 class="text-3xl font-serif text-brand-green mb-8">Keranjang Belanja</h2>
-                <div id="empty-cart" class="hidden bg-white rounded-3xl p-16 text-center shadow-sm">
-                    <h3 class="text-2xl font-semibold mb-2">Keranjang Anda Kosong</h3>
+        <!-- ============================================== -->
+        <!-- VIEW: HALAMAN PENUH PRODUK (FULLPAGE DETAIL)   -->
+        <!-- ============================================== -->
+        <div id="view-product" class="hidden bg-white min-h-screen pb-24 fade-in">
+            <!-- Tombol Kembali -->
+            <div class="bg-brand-soft/50 border-b border-gray-100">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+                    <button onclick="showPublicView('home')" class="group flex items-center gap-2 text-brand-green font-medium hover:text-brand-gold transition-colors">
+                        <i class="fa-solid fa-arrow-left-long group-hover:-translate-x-1 transition-transform"></i> Kembali ke Koleksi
+                    </button>
                 </div>
-                <div id="cart-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
-                    <div class="lg:col-span-2 space-y-4" id="cart-items-container"></div>
-                    <div class="lg:col-span-1">
-                        <div class="bg-white p-6 rounded-3xl shadow-sm sticky top-28">
-                            <h3 class="text-xl font-serif font-bold border-b pb-4 mb-4 text-brand-green">Ringkasan</h3>
-                            <div class="flex justify-between items-center mb-8 text-xl font-bold text-brand-green">
-                                <span>Total</span>
-                                <span id="cart-total-price" class="text-brand-gold">Rp 0</span>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 lg:py-16">
+                <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
+                    
+                    <!-- Kiri: Foto Produk Besar & Sticky -->
+                    <div class="w-full lg:w-1/2">
+                        <div class="sticky top-28 slide-in-right">
+                            <div class="rounded-[2rem] overflow-hidden bg-brand-soft aspect-square shadow-xl relative group">
+                                <img id="detail-image" src="" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" alt="Furnitur Casa Curva">
+                                <div id="detail-stock-badge" class="absolute top-6 right-6 px-4 py-2 rounded-full text-sm font-bold shadow-md backdrop-blur-md">
+                                    <!-- Diisi JS -->
+                                </div>
                             </div>
-                            <button onclick="checkoutWA()" class="w-full bg-brand-green text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3">
-                                <i class="fa-brands fa-whatsapp text-2xl text-green-400"></i> Checkout WhatsApp
+                        </div>
+                    </div>
+
+                    <!-- Kanan: Detail & Deskripsi Panjang -->
+                    <div class="w-full lg:w-1/2 flex flex-col justify-center fade-in-up" style="animation-delay: 0.1s;">
+                        <span class="text-brand-gold font-semibold tracking-wider uppercase text-sm mb-3 block">Casa Curva Exclusive</span>
+                        <h1 id="detail-name" class="text-4xl lg:text-5xl font-serif text-brand-green font-bold leading-tight mb-6 text-balance">
+                            Nama Produk
+                        </h1>
+                        <div id="detail-price" class="text-3xl font-light text-gray-800 mb-10 pb-10 border-b border-gray-200">
+                            Rp 0
+                        </div>
+
+                        <!-- Deskripsi -->
+                        <div class="prose prose-lg text-gray-600 mb-12">
+                            <h3 class="text-xl font-serif text-brand-green font-bold mb-4 flex items-center gap-2">
+                                <i class="fa-solid fa-quote-left text-brand-gold opacity-50 text-sm"></i> Cerita di Balik Karya Ini
+                            </h3>
+                            <p id="detail-desc" class="whitespace-pre-line leading-relaxed text-justify">
+                                Deskripsi panjang akan muncul di sini dengan nyaman untuk dibaca.
+                            </p>
+                        </div>
+
+                        <!-- Area Aksi Keranjang -->
+                        <div id="detail-action-area" class="bg-brand-soft/50 p-6 md:p-8 rounded-3xl border border-brand-gold/20">
+                            <p class="text-sm text-gray-500 font-medium mb-4 uppercase tracking-wider">Tambahkan ke ruang Anda</p>
+                            <div class="flex flex-col sm:flex-row gap-4">
+                                <div class="flex items-center bg-white border border-gray-200 rounded-full h-14 overflow-hidden w-full sm:w-40 shadow-sm shrink-0">
+                                    <button onclick="changeDetailQty(-1)" class="flex-1 h-full text-gray-400 hover:text-brand-green hover:bg-gray-50 transition-colors"><i class="fa-solid fa-minus"></i></button>
+                                    <span id="detail-qty-input" class="w-12 text-center font-bold text-xl select-none text-brand-green">1</span>
+                                    <button onclick="changeDetailQty(1)" class="flex-1 h-full text-gray-400 hover:text-brand-green hover:bg-gray-50 transition-colors"><i class="fa-solid fa-plus"></i></button>
+                                </div>
+                                <button onclick="addToCartFromDetail()" class="flex-grow bg-brand-green text-white h-14 rounded-full font-bold flex items-center justify-center gap-3 hover:bg-brand-gold transition-all duration-300 shadow-[0_8px_20px_rgba(22,42,32,0.2)] hover:-translate-y-1 hover:shadow-[0_10px_25px_rgba(212,175,55,0.4)]">
+                                    <i class="fa-solid fa-cart-shopping"></i> Masukkan Keranjang
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tombol Habis (Sembunyi by default) -->
+                        <div id="detail-oos-area" class="hidden bg-gray-100 p-6 rounded-3xl text-center border border-gray-200">
+                            <i class="fa-solid fa-hourglass-empty text-3xl text-gray-400 mb-3"></i>
+                            <h4 class="font-bold text-gray-700">Koleksi Ini Sedang Habis</h4>
+                            <p class="text-sm text-gray-500 mt-1">Silakan hubungi kami untuk informasi pemesanan ulang (Pre-Order).</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- VIEW: KERANJANG BELANJA                        -->
+        <!-- ============================================== -->
+        <div id="view-cart" class="hidden bg-brand-soft/30 min-h-screen pb-24 fade-in">
+            <div class="bg-brand-green pt-10 pb-20">
+                <div class="max-w-5xl mx-auto px-4">
+                    <button onclick="showPublicView('home')" class="text-brand-gold hover:text-white transition-colors flex items-center gap-2 mb-6">
+                        <i class="fa-solid fa-arrow-left-long"></i> Lanjut Jelajahi Koleksi
+                    </button>
+                    <h2 class="text-4xl md:text-5xl font-serif text-white">Keranjang <span class="text-brand-gold italic">Impian Anda</span></h2>
+                </div>
+            </div>
+
+            <div class="max-w-5xl mx-auto px-4 -mt-10">
+                <!-- Kosong -->
+                <div id="empty-cart" class="hidden bg-white rounded-3xl p-16 text-center shadow-xl border border-gray-100 fade-in-up">
+                    <div class="w-24 h-24 bg-brand-soft rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fa-light fa-bag-shopping text-4xl text-brand-gold"></i>
+                    </div>
+                    <h3 class="text-2xl font-serif text-brand-green mb-3">Keranjang Masih Kosong</h3>
+                    <p class="text-gray-500 mb-8 max-w-md mx-auto">Ruang Anda menanti sentuhan magis. Mari temukan furnitur yang sempurna untuk melengkapinya.</p>
+                    <button onclick="showPublicView('home')" class="bg-brand-green text-white px-8 py-3 rounded-full font-medium hover:bg-brand-gold transition-colors shadow-lg">
+                        Lihat Katalog Kami
+                    </button>
+                </div>
+
+                <!-- Isi Keranjang -->
+                <div id="cart-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8 fade-in-up">
+                    
+                    <div class="lg:col-span-2 space-y-4" id="cart-items-container">
+                        <!-- Item Di-render via JS -->
+                    </div>
+                    
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-8 rounded-3xl shadow-xl border border-gray-100 sticky top-28">
+                            <h3 class="font-serif text-2xl text-brand-green border-b border-gray-100 pb-4 mb-6">Langkah Terakhir</h3>
+                            
+                            <p class="text-gray-600 text-sm leading-relaxed mb-8 text-center bg-brand-soft p-4 rounded-xl border border-brand-gold/20">
+                                <i class="fa-solid fa-gem text-brand-gold mb-2 block text-xl"></i>
+                                Pesanan Anda akan kami terima melalui WhatsApp. Tim konsultan kami akan memandu Anda untuk detail pengiriman dan pembayaran.
+                            </p>
+
+                            <button onclick="checkoutWA()" class="group w-full bg-brand-green text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-green-600 transition-all duration-300 shadow-[0_10px_20px_rgba(22,42,32,0.15)] hover:-translate-y-1">
+                                <i class="fa-brands fa-whatsapp text-2xl group-hover:scale-110 transition-transform"></i> Hubungi Tim Kami
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- FOOTER PUBLIK -->
+        <footer class="bg-brand-dark text-gray-400 py-16 border-t border-brand-gold/10">
+            <div class="max-w-7xl mx-auto px-4 text-center">
+                <span class="font-serif text-3xl font-bold text-white mb-4 block">Casa<span class="text-brand-gold italic">Curva</span></span>
+                <p class="text-sm mb-8 max-w-md mx-auto leading-relaxed text-gray-500">
+                    Menghadirkan kenyamanan dan estetika paripurna ke dalam ruang Anda melalui koleksi sofa dan kabinet eksklusif bernilai seni tinggi.
+                </p>
+                <div class="flex justify-center gap-6 mb-8 text-brand-gold/70">
+                    <a href="#" class="hover:text-brand-gold transition-colors text-2xl"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="hover:text-brand-gold transition-colors text-2xl"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+                <p class="text-xs tracking-wider uppercase text-gray-600">&copy; 2026 Casa Curva Studio. All rights reserved.</p>
+            </div>
+        </footer>
     </div>
 
-    <!-- MODAL ADMIN LOGIN -->
-    <div id="admin-login-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-brand-green/90 backdrop-blur-md opacity-0 transition-opacity">
-        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative scale-up">
-            <button onclick="closeAdminLogin()" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark text-xl"></i></button>
-            <div class="text-center mb-8">
-                <h2 class="text-2xl font-serif text-brand-green font-bold">Akses Admin</h2>
-                <p class="text-sm text-gray-500">Terhubung ke Vercel Serverless</p>
+
+    <!-- ============================================== -->
+    <!-- MODAL ADMIN LOGIN (AMANKAN DENGAN API VERCEL)  -->
+    <!-- ============================================== -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 z-[100] items-center justify-center p-4 bg-brand-green/95 backdrop-blur-md opacity-0 transition-opacity duration-300">
+        <div class="bg-white rounded-[2rem] p-8 md:p-10 max-w-md w-full relative scale-up shadow-2xl">
+            <button onclick="closeAdminLogin()" class="absolute top-5 right-5 text-gray-400 hover:text-brand-green transition-colors w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
+            <div class="text-center mb-8 mt-4">
+                <div class="w-16 h-16 bg-brand-soft rounded-full flex items-center justify-center mx-auto mb-4 border border-brand-gold/30 text-brand-gold">
+                    <i class="fa-solid fa-key text-2xl"></i>
+                </div>
+                <h2 class="text-2xl font-serif text-brand-green font-bold mb-1">Ruang Kerja Admin</h2>
+                <p class="text-sm text-gray-500">Silakan masuk untuk mengelola katalog.</p>
             </div>
-            <form onsubmit="handleLoginSubmit(event)" class="space-y-6">
-                <!-- Sandi diisi di Vercel Env Var -->
-                <input type="password" id="admin-password" placeholder="Masukkan Kata Sandi..." class="w-full px-4 py-3 bg-gray-50 border rounded-xl" required autocomplete="off" />
-                <p id="login-error" class="text-red-500 text-sm mt-2 hidden"><i class="fa-solid fa-circle-exclamation"></i> Kata sandi salah!</p>
-                <button type="submit" id="btn-login" class="w-full bg-brand-gold text-brand-green py-3 rounded-xl font-bold text-lg">Masuk</button>
+            <form onsubmit="handleLoginSubmit(event)" class="space-y-5">
+                <div>
+                    <input type="password" id="admin-password" placeholder="Kata Sandi Rahasia" class="w-full px-5 py-4 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all text-center tracking-widest font-mono" required autocomplete="off" />
+                    <p id="login-error" class="text-red-500 text-sm mt-3 hidden text-center font-medium bg-red-50 py-2 rounded-lg border border-red-100"><i class="fa-solid fa-circle-exclamation"></i> Kredensial tidak valid!</p>
+                </div>
+                <button type="submit" id="btn-login" class="w-full bg-brand-green text-brand-gold py-4 rounded-xl font-bold text-lg hover:bg-brand-dark transition-colors shadow-lg">Buka Akses</button>
             </form>
         </div>
     </div>
 
-    <!-- AREA ADMIN (JSON GENERATOR) -->
+
+    <!-- ============================================== -->
+    <!-- AREA ADMIN (BULK JSON GENERATOR VIA LOCALSTORAGE) -->
+    <!-- ============================================== -->
     <div id="admin-area" class="hidden bg-gray-50 min-h-screen pb-20">
-        <header class="bg-brand-green text-white p-4 sticky top-0 z-30 flex justify-between items-center">
-            <h1 class="text-xl font-bold font-serif">Panel Admin <span class="text-brand-gold text-sm font-sans">(JSON Generator)</span></h1>
-            <button onclick="logoutAdmin()" class="bg-red-500/20 text-red-100 px-4 py-2 rounded-lg">Keluar</button>
+        <header class="bg-brand-green text-white sticky top-0 z-30 shadow-md">
+            <div class="max-w-7xl mx-auto px-4 h-16 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <i class="fa-solid fa-database text-brand-gold"></i>
+                    <h1 class="font-bold font-serif text-lg tracking-wide">Data Studio <span class="text-brand-gold/70 text-sm font-sans font-normal ml-2">Casa Curva</span></h1>
+                </div>
+                <button onclick="logoutAdmin()" class="bg-red-500/10 text-red-200 hover:bg-red-500 hover:text-white px-4 py-1.5 rounded-lg text-sm font-medium transition-colors flex items-center gap-2">
+                    <i class="fa-solid fa-power-off"></i> Tutup Sesi
+                </button>
+            </div>
         </header>
 
-        <div class="max-w-4xl mx-auto px-4 mt-8">
-            <div class="bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-xl mb-8 flex gap-4 items-start">
-                <i class="fa-solid fa-circle-info text-xl mt-1"></i>
+        <div class="max-w-7xl mx-auto px-4 mt-8 grid grid-cols-1 xl:grid-cols-12 gap-8">
+            
+            <!-- Info Petunjuk -->
+            <div class="xl:col-span-12 bg-white border border-brand-gold/30 p-5 rounded-2xl flex flex-col sm:flex-row gap-4 items-start shadow-sm">
+                <div class="w-10 h-10 bg-brand-soft rounded-full flex items-center justify-center shrink-0 text-brand-gold">
+                    <i class="fa-solid fa-lightbulb text-lg"></i>
+                </div>
                 <div>
-                    <h4 class="font-bold">Panduan Integrasi GitHub:</h4>
-                    <p class="text-sm mt-1">Gunakan form di bawah untuk membuat <strong>Kode JSON</strong> produk. Copy kode tersebut, lalu paste ke dalam file <code>data.json</code> di GitHub Anda. Jangan lupa upload foto secara manual ke folder <code>/assets/</code> di GitHub.</p>
+                    <h4 class="font-bold text-brand-green text-lg">Cara Kerja Baru (Lebih Cepat!)</h4>
+                    <p class="text-sm text-gray-600 mt-1 leading-relaxed">
+                        Input semua data furnitur satu per satu pada form di bawah. Data tidak akan langsung terpublikasi, melainkan tersimpan sementara di "Draft". Jika semua barang sudah selesai diinput, klik tombol <strong>"Unduh data.json"</strong> di panel kanan, lalu *upload* file tersebut ke GitHub Anda menggantikan file lamanya.
+                    </p>
                 </div>
             </div>
 
-            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
-                <h2 class="text-xl font-bold mb-6 border-b pb-3">Buat Data Produk Baru</h2>
-                <form id="add-product-form" onsubmit="generateJSON(event)" class="space-y-4">
-                    <input type="text" id="p-name" placeholder="Nama Produk (Contoh: Sofa Hijau)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
-                    <div class="grid grid-cols-2 gap-4">
-                        <input type="number" id="p-price" placeholder="Harga (Tanpa Titik)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
-                        <input type="number" id="p-qty" placeholder="Stok (Contoh: 5)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
-                    </div>
-                    <textarea id="p-desc" placeholder="Deskripsi Lengkap" required rows="3" class="w-full px-4 py-2 bg-gray-50 border rounded-lg"></textarea>
-                    
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama File Foto yang diupload ke GitHub:</label>
-                        <input type="text" id="p-image-name" placeholder="Contoh: sofa-hijau.jpg" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
-                    </div>
-                    
-                    <button type="submit" class="w-full bg-brand-green text-white py-3 rounded-xl font-bold">Generate JSON</button>
-                </form>
+            <!-- Form Input -->
+            <div class="xl:col-span-4 relative">
+                <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200 sticky top-24">
+                    <h2 class="text-xl font-bold text-brand-green mb-6 border-b border-gray-100 pb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-pen-to-square text-brand-gold"></i> Form Produk Baru
+                    </h2>
+                    <form id="draft-form" onsubmit="addDraft(event)" class="space-y-4">
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Nama Furnitur</label>
+                            <input type="text" id="p-name" placeholder="Sofa Emerald Modern..." required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all">
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Harga (Rp)</label>
+                                <input type="number" id="p-price" placeholder="Misal: 8500000" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Stok Tersedia</label>
+                                <input type="number" id="p-qty" placeholder="Misal: 5" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono">
+                            </div>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Cerita/Deskripsi Lengkap</label>
+                            <textarea id="p-desc" placeholder="Jelaskan kemewahan dan material produk ini..." required rows="4" class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all resize-none"></textarea>
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Nama File Foto di GitHub</label>
+                            <div class="relative">
+                                <span class="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 font-mono text-sm">assets/</span>
+                                <input type="text" id="p-image-name" placeholder="sofa-baru.jpg" required class="w-full pl-20 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all font-mono text-sm text-brand-green font-medium">
+                            </div>
+                            <p class="text-[10px] text-gray-400 mt-1.5"><i class="fa-solid fa-circle-info"></i> Pastikan nama di atas sama persis dengan foto yang diupload ke folder assets GitHub.</p>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-brand-green hover:bg-brand-dark text-white py-4 rounded-xl font-bold transition-colors mt-4 shadow-md flex items-center justify-center gap-2">
+                            <i class="fa-solid fa-plus"></i> Tambah ke Draft
+                        </button>
+                    </form>
+                </div>
+            </div>
 
-                <div id="json-result-area" class="mt-8 hidden">
-                    <h3 class="font-bold text-gray-700 mb-2">Copy Kode JSON ini:</h3>
-                    <div class="relative">
-                        <textarea id="json-output" rows="10" class="w-full px-4 py-3 bg-gray-900 text-green-400 font-mono text-sm rounded-xl border border-gray-700" readonly></textarea>
-                        <button onclick="copyJSON()" class="absolute top-2 right-2 bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-xs">Copy</button>
+            <!-- List Draft & Download -->
+            <div class="xl:col-span-8">
+                <div class="bg-white rounded-2xl shadow-sm border border-gray-200 overflow-hidden flex flex-col h-full min-h-[500px]">
+                    <!-- Header Tabel -->
+                    <div class="p-6 bg-gray-50 border-b border-gray-100 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+                        <div>
+                            <h3 class="font-bold text-brand-green text-xl">Daftar Produk Draft</h3>
+                            <p class="text-sm text-gray-500">Data ini tersimpan sementara di browser Anda.</p>
+                        </div>
+                        <div class="flex items-center gap-3 w-full sm:w-auto">
+                            <button onclick="clearDraft()" class="px-4 py-2 bg-white border border-red-200 text-red-500 rounded-lg text-sm font-bold hover:bg-red-50 transition-colors">
+                                <i class="fa-solid fa-trash-can"></i> Kosongkan
+                            </button>
+                            <button onclick="downloadJSON()" class="flex-grow sm:flex-grow-0 px-6 py-2 bg-brand-gold text-brand-green rounded-lg text-sm font-bold hover:bg-yellow-500 transition-colors shadow-sm flex items-center justify-center gap-2">
+                                <i class="fa-solid fa-download"></i> Unduh data.json
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <!-- Isi Tabel -->
+                    <div class="overflow-x-auto flex-grow">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="text-xs uppercase tracking-wider text-gray-400 border-b border-gray-100 bg-white">
+                                    <th class="p-4 font-semibold w-12 text-center">No</th>
+                                    <th class="p-4 font-semibold">Produk & File</th>
+                                    <th class="p-4 font-semibold">Harga</th>
+                                    <th class="p-4 font-semibold text-center">Stok</th>
+                                    <th class="p-4 font-semibold text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="draft-list-body">
+                                <!-- Draft JS Injected -->
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- PRODUCT MODAL -->
-    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden opacity-0 transition-opacity">
-        <div class="bg-white rounded-3xl overflow-hidden w-full max-w-5xl flex flex-col md:flex-row relative">
-            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/90 rounded-full shadow-lg"><i class="fa-solid fa-xmark"></i></button>
-            <div class="w-full md:w-1/2 bg-gray-100 flex flex-col h-64 md:h-[500px]">
-                <img id="modal-main-image" src="" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/800?text=Gambar+Belum+Di-upload'">
-            </div>
-            <div class="w-full md:w-1/2 p-8 flex flex-col">
-                <h2 id="modal-name" class="text-3xl font-serif font-bold mb-2">Name</h2>
-                <div id="modal-price" class="text-2xl font-bold text-brand-gold mb-4">Rp 0</div>
-                <p id="modal-desc" class="text-gray-600 mb-6 flex-grow whitespace-pre-line overflow-y-auto">Desc</p>
-                <div id="modal-action-area" class="flex gap-4">
-                    <button onclick="addToCartFromModal()" class="flex-grow bg-brand-green hover:bg-brand-gold transition-colors text-white h-14 rounded-full font-bold">Tambah ke Keranjang</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
+    <!-- ===================================================================== -->
+    <!-- LOGIKA JAVASCRIPT UTAMA                                               -->
+    <!-- ===================================================================== -->
     <script>
         const formatRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+        
+        // --- State ---
         let products = [];
         let cart = JSON.parse(localStorage.getItem('casacurva_cart')) || [];
+        let draftProducts = JSON.parse(localStorage.getItem('casacurva_draft')) || [];
+        let currentDetailProduct = null;
 
+        // --- Init Data ---
         async function fetchProducts() {
             try {
                 const response = await fetch('./data.json');
-                if (!response.ok) throw new Error('data.json tidak ditemukan');
+                if (!response.ok) throw new Error('File tidak ditemukan');
                 products = await response.json();
+                
                 document.getElementById('loading-catalog').classList.add('hidden');
                 renderHome();
                 renderCart();
                 updateCartBadge();
             } catch (error) {
                 document.getElementById('loading-catalog').classList.add('hidden');
-                products = [ { id: '1', name: 'Contoh: Sofa Emerald', price: 8500000, qty: 5, description: 'Menampilkan data simulasi.', images: ['assets/sofa.jpg'] } ];
-                renderHome();
                 document.getElementById('empty-catalog').classList.remove('hidden');
-                document.getElementById('empty-catalog').innerHTML = `<h3 class="text-xl font-medium text-red-500 mb-2">Peringatan: data.json tidak ditemukan</h3><p class="text-sm">Buat file <code>data.json</code> di GitHub Anda.</p>`;
+                // Tampilkan pesan elegan (bukan merah) agar tetap profesional meski kosong
+                console.log("Menunggu data.json diunggah ke server...");
             }
         }
-        document.addEventListener('DOMContentLoaded', fetchProducts);
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchProducts();
+            renderDraftList();
+        });
 
+        // --- Navigasi View ---
         function showPublicView(view) {
             document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-product').classList.add('hidden');
             document.getElementById('view-cart').classList.add('hidden');
+            
             document.getElementById(`view-${view}`).classList.remove('hidden');
             window.scrollTo(0,0);
         }
 
-        let clickCount = 0; let clickTimer = null;
-        function handleLogoClick() {
-            clickCount++;
-            if(clickTimer) clearTimeout(clickTimer);
-            if (clickCount >= 5) {
-                clickCount = 0;
-                document.getElementById('admin-password').value = '';
-                document.getElementById('login-error').classList.add('hidden');
-                document.getElementById('admin-login-modal').classList.remove('hidden');
-                setTimeout(() => document.getElementById('admin-login-modal').classList.remove('opacity-0'), 10);
-            } else {
-                clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
-            }
-        }
-        function closeAdminLogin() {
-            document.getElementById('admin-login-modal').classList.add('opacity-0');
-            setTimeout(() => document.getElementById('admin-login-modal').classList.add('hidden'), 300);
-        }
-
-        // =====================================================================
-        // LOGIKA LOGIN MELALUI API VERCEL (SUPER AMAN)
-        // =====================================================================
-        async function handleLoginSubmit(e) {
-            e.preventDefault();
-            const inputSandi = document.getElementById('admin-password').value;
-            const errorText = document.getElementById('login-error');
-            const btn = document.getElementById('btn-login');
-            
-            errorText.classList.add('hidden');
-            btn.innerText = 'Mengecek...';
-            btn.disabled = true;
-
-            try {
-                // Memanggil file api/login.js di Vercel
-                const response = await fetch('/api/login', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ password: inputSandi })
-                });
-
-                const data = await response.json();
-
-                if (response.ok && data.success) {
-                    // Jika API Vercel bilang Benar
-                    closeAdminLogin();
-                    document.getElementById('public-area').classList.add('hidden');
-                    document.getElementById('admin-area').classList.remove('hidden');
-                } else {
-                    // Jika API Vercel bilang Salah
-                    errorText.innerText = "Kata sandi salah!";
-                    errorText.classList.remove('hidden'); 
-                }
-            } catch (err) {
-                // Jika error saat koneksi atau belum dihosting di Vercel
-                errorText.innerText = "Error: Fitur login ini hanya berfungsi jika sudah dihosting di Vercel (karena butuh Serverless API).";
-                errorText.classList.remove('hidden'); 
-                console.error("Gagal memanggil API Vercel:", err);
-            } finally {
-                btn.innerText = 'Masuk';
-                btn.disabled = false;
-            }
-        }
-
-        function logoutAdmin() {
-            document.getElementById('admin-area').classList.add('hidden');
-            document.getElementById('public-area').classList.remove('hidden');
-        }
-
+        // --- Render Katalog (Beranda) ---
         function renderHome() {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
-            products.forEach(p => {
-                const img = p.images?.[0] || 'https://via.placeholder.com/800?text=Gambar+Kosong';
+            
+            if(products.length > 0) {
+                document.getElementById('empty-catalog').classList.add('hidden');
+            }
+
+            products.forEach((p, index) => {
+                const img = p.images?.[0] || 'https://via.placeholder.com/800?text=Casa+Curva';
+                const delay = index * 0.1; // Efek muncul bergantian
+                
                 grid.innerHTML += `
-                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer" onclick="openProductModal('${p.id}')">
-                        <img src="${img}" class="w-full h-64 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/800?text=Foto+Tidak+Ditemukan'">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold font-serif mb-2 truncate">${p.name}</h3>
-                            <div class="flex justify-between items-center mt-4">
-                                <span class="text-brand-gold font-bold text-lg">${formatRupiah(p.price)}</span>
-                                <button onclick="event.stopPropagation(); fastAddToCart('${p.id}')" class="bg-brand-green text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-brand-gold"><i class="fa-solid fa-plus"></i></button>
+                    <div class="bg-white rounded-[2rem] overflow-hidden shadow-sm hover:shadow-[0_20px_40px_rgba(22,42,32,0.08)] transition-all duration-500 cursor-pointer group fade-in-up" style="animation-delay: ${delay}s" onclick="openProductDetail('${p.id}')">
+                        <div class="relative h-72 overflow-hidden bg-brand-soft">
+                            <img src="${img}" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" onerror="this.src='https://via.placeholder.com/800?text=Gambar+Tertunda'">
+                            ${p.qty <= 0 ? `<div class="absolute inset-0 bg-white/40 backdrop-blur-[2px] flex items-center justify-center"><span class="bg-brand-dark text-white px-6 py-2 rounded-full text-sm font-bold tracking-widest uppercase shadow-lg">Habis Terjual</span></div>` : ''}
+                        </div>
+                        <div class="p-8 flex flex-col justify-between">
+                            <div class="mb-4">
+                                <span class="text-[10px] font-bold tracking-widest uppercase text-brand-gold mb-2 block">Koleksi Signature</span>
+                                <h3 class="text-2xl font-bold font-serif text-brand-green leading-tight group-hover:text-brand-gold transition-colors line-clamp-2">${p.name}</h3>
+                            </div>
+                            <div class="flex justify-between items-end mt-2">
+                                <span class="text-gray-900 font-light text-xl">${formatRupiah(p.price)}</span>
+                                <div class="w-10 h-10 rounded-full border border-gray-200 flex items-center justify-center text-gray-400 group-hover:bg-brand-green group-hover:text-white group-hover:border-brand-green transition-all">
+                                    <i class="fa-solid fa-arrow-right -rotate-45"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -314,48 +492,94 @@
             });
         }
 
-        let currentModalProduct = null;
-        function openProductModal(id) {
-            currentModalProduct = products.find(p => p.id === id);
-            if(!currentModalProduct) return;
-            document.getElementById('modal-name').innerText = currentModalProduct.name;
-            document.getElementById('modal-price').innerText = formatRupiah(currentModalProduct.price);
-            document.getElementById('modal-desc').innerText = currentModalProduct.description;
-            document.getElementById('modal-main-image').src = currentModalProduct.images?.[0] || '';
-            const modal = document.getElementById('product-modal');
-            modal.classList.remove('hidden');
-            setTimeout(() => modal.classList.remove('opacity-0'), 10);
-        }
-        function closeProductModal() {
-            const modal = document.getElementById('product-modal');
-            modal.classList.add('opacity-0');
-            setTimeout(() => modal.classList.add('hidden'), 300);
+        // --- FULLPAGE PRODUCT DETAIL LOGIC ---
+        let currentDetailQty = 1;
+
+        function openProductDetail(id) {
+            currentDetailProduct = products.find(p => p.id === id);
+            if(!currentDetailProduct) return;
+            
+            currentDetailQty = 1;
+            
+            // Set Konten
+            document.getElementById('detail-name').innerText = currentDetailProduct.name;
+            document.getElementById('detail-price').innerText = formatRupiah(currentDetailProduct.price);
+            document.getElementById('detail-desc').innerText = currentDetailProduct.description;
+            document.getElementById('detail-image').src = currentDetailProduct.images?.[0] || '';
+            document.getElementById('detail-qty-input').innerText = currentDetailQty;
+            
+            // Set Status & Tombol
+            const badge = document.getElementById('detail-stock-badge');
+            const actionArea = document.getElementById('detail-action-area');
+            const oosArea = document.getElementById('detail-oos-area');
+
+            if(currentDetailProduct.qty > 0) {
+                badge.className = "absolute top-6 right-6 px-4 py-2 rounded-full text-xs font-bold shadow-md backdrop-blur-md bg-white/90 text-brand-green border border-gray-100";
+                badge.innerHTML = `<i class="fa-solid fa-check text-green-500 mr-1"></i> Tersedia (${currentDetailProduct.qty} unit)`;
+                actionArea.classList.remove('hidden');
+                oosArea.classList.add('hidden');
+            } else {
+                badge.className = "absolute top-6 right-6 px-4 py-2 rounded-full text-xs font-bold shadow-md backdrop-blur-md bg-brand-dark text-white";
+                badge.innerHTML = `Habis Terjual`;
+                actionArea.classList.add('hidden');
+                oosArea.classList.remove('hidden');
+            }
+
+            showPublicView('product');
         }
 
-        function fastAddToCart(id) {
-            const p = products.find(i => i.id === id);
-            if(p) { addToCart(p, 1); alert("Masuk ke keranjang!"); }
+        function changeDetailQty(change) {
+            let newQty = currentDetailQty + change;
+            if(newQty >= 1 && newQty <= currentDetailProduct.qty) {
+                currentDetailQty = newQty;
+                document.getElementById('detail-qty-input').innerText = currentDetailQty;
+            }
         }
-        function addToCartFromModal() {
-            if(currentModalProduct) { addToCart(currentModalProduct, 1); closeProductModal(); alert("Masuk ke keranjang!"); }
+
+        function addToCartFromDetail() {
+            if(!currentDetailProduct) return;
+            addToCart(currentDetailProduct, currentDetailQty);
+            
+            // Animasi manis ke tombol keranjang di atas
+            const navBtn = document.querySelector('nav button');
+            navBtn.classList.add('text-brand-gold', 'scale-125');
+            setTimeout(() => navBtn.classList.remove('text-brand-gold', 'scale-125'), 400);
+            
+            // Kembali ke katalog otomatis (opsional, memberikan flow yang cepat)
+            showPublicView('home');
         }
-        function addToCart(p, q) {
-            const ex = cart.find(i => i.id === p.id);
-            if(ex) ex.qty += q; else cart.push({...p, qty: q});
+
+        // --- CART LOGIC ---
+        function addToCart(product, quantity) {
+            const ex = cart.find(i => i.id === product.id);
+            if(ex) {
+                if (ex.qty + quantity > product.qty) {
+                    alert(`Maaf, sisa stok koleksi ini hanya ${product.qty} unit.`);
+                    ex.qty = product.qty;
+                } else {
+                    ex.qty += quantity;
+                }
+            } else {
+                cart.push({...product, qty: quantity});
+            }
             localStorage.setItem('casacurva_cart', JSON.stringify(cart));
-            renderCart(); updateCartBadge();
+            renderCart(); 
+            updateCartBadge();
         }
+
         function removeFromCart(id) {
             cart = cart.filter(i => i.id !== id);
             localStorage.setItem('casacurva_cart', JSON.stringify(cart));
             renderCart(); updateCartBadge();
         }
+
         function updateCartBadge() {
             const b = document.getElementById('cart-badge');
-            const t = cart.reduce((s, i) => s + i.qty, 0);
-            if(t > 0) { b.innerText = t; b.classList.remove('hidden'); b.classList.add('flex'); }
+            const total = cart.reduce((sum, item) => sum + item.qty, 0);
+            if(total > 0) { b.innerText = total; b.classList.remove('hidden'); b.classList.add('flex'); }
             else { b.classList.add('hidden'); b.classList.remove('flex'); }
         }
+
         function renderCart() {
             const cont = document.getElementById('cart-items-container');
             if(cart.length === 0) {
@@ -366,56 +590,230 @@
             document.getElementById('empty-cart').classList.add('hidden');
             document.getElementById('cart-content').classList.remove('hidden');
             document.getElementById('cart-content').classList.add('grid');
-            cont.innerHTML = ''; let tot = 0;
+            
+            cont.innerHTML = ''; 
+            
             cart.forEach(item => {
-                const dbProduct = products.find(p => p.id === item.id);
-                const currentPrice = dbProduct ? dbProduct.price : item.price;
-                tot += (currentPrice * item.qty);
-                const img = item.images?.[0] || 'https://via.placeholder.com/150';
+                const dbProduct = products.find(p => p.id === item.id) || item; // Fallback ke harga lama jika data json blm direfresh
+                const img = dbProduct.images?.[0] || 'https://via.placeholder.com/200';
+                
                 cont.innerHTML += `
-                    <div class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-gray-100">
-                        <img src="${img}" class="w-20 h-20 object-cover rounded-xl bg-gray-100" onerror="this.src='https://via.placeholder.com/150?text=Gambar'">
-                        <div class="flex-grow">
-                            <h4 class="font-bold text-brand-green">${item.name}</h4>
-                            <p class="text-sm font-bold text-brand-gold">${formatRupiah(currentPrice)} x ${item.qty}</p>
+                    <div class="bg-white p-5 rounded-3xl flex items-center gap-5 border border-gray-100 shadow-sm relative group">
+                        <div class="w-24 h-24 rounded-2xl overflow-hidden bg-brand-soft shrink-0">
+                            <img src="${img}" class="w-full h-full object-cover">
                         </div>
-                        <button onclick="removeFromCart('${item.id}')" class="text-red-500 p-2"><i class="fa-solid fa-trash-can"></i></button>
+                        <div class="flex-grow pr-8">
+                            <h4 class="font-bold font-serif text-brand-green text-lg leading-tight mb-1">${dbProduct.name}</h4>
+                            <p class="text-sm font-light text-gray-500 mb-2">${formatRupiah(dbProduct.price)} <span class="text-xs">x ${item.qty} unit</span></p>
+                            <p class="font-medium text-brand-gold text-lg">${formatRupiah(dbProduct.price * item.qty)}</p>
+                        </div>
+                        <button onclick="removeFromCart('${item.id}')" class="absolute top-1/2 -translate-y-1/2 right-6 w-10 h-10 bg-red-50 text-red-400 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all hover:bg-red-500 hover:text-white" title="Hapus dari keranjang">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </div>
                 `;
             });
-            document.getElementById('cart-total-price').innerText = formatRupiah(tot);
-        }
-        function checkoutWA() {
-            if(cart.length === 0) return;
-            let t = "*Halo Admin Casa Curva*, saya memesan:\n\n"; let tot = 0;
-            cart.forEach((i, x) => {
-                const dbProduct = products.find(p => p.id === i.id);
-                const currentPrice = dbProduct ? dbProduct.price : i.price;
-                const sub = currentPrice * i.qty; tot += sub;
-                t += `${x+1}. *${i.name}*\n   ↳ ${i.qty} x ${formatRupiah(currentPrice)}\n   ↳ Sub: ${formatRupiah(sub)}\n\n`;
-            });
-            t += `*TOTAL: ${formatRupiah(tot)}*\n\nMohon info ketersediaan.`;
-            window.open(`https://wa.me/6283825770066?text=${encodeURIComponent(t)}`, '_blank');
         }
 
-        function generateJSON(e) {
+        // --- CHECKOUT WHATSAPP (Sesuai Permintaan: EMOJI + KATA MANIS, TANPA TOTAL) ---
+        function checkoutWA() {
+            if(cart.length === 0) return;
+            
+            let msg = "Halo Tim Casa Curva, saya sangat tertarik dengan koleksi furnitur Anda yang elegan! ✨\n\nBerikut detail pesanan saya:\n\n";
+            
+            cart.forEach((item) => {
+                const dbProduct = products.find(p => p.id === item.id) || item;
+                msg += `🛋️ *${dbProduct.name}*\n`;
+                msg += `   💰 Harga: ${formatRupiah(dbProduct.price)}\n`;
+                msg += `   📦 Jumlah: ${item.qty} unit\n\n`;
+            });
+            
+            msg += "Mohon bantuannya untuk informasi lebih lanjut mengenai ketersediaan stok dan proses pengirimannya ya. Terima kasih banyak! 🌟";
+            
+            const waNum = "6283825770066";
+            window.open(`https://wa.me/${waNum}?text=${encodeURIComponent(msg)}`, '_blank');
+        }
+
+
+        // =====================================================================
+        // ADMIN LOGIN (API VERCEL) & ADMIN DRAFT LOGIC
+        // =====================================================================
+        
+        let clickCountAdmin = 0; let clickTimerAdmin = null;
+        function handleLogoClick() {
+            clickCountAdmin++;
+            if(clickTimerAdmin) clearTimeout(clickTimerAdmin);
+            if (clickCountAdmin >= 5) {
+                clickCountAdmin = 0;
+                document.getElementById('admin-password').value = '';
+                document.getElementById('login-error').classList.add('hidden');
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+                setTimeout(() => document.getElementById('admin-login-modal').classList.remove('opacity-0'), 10);
+            } else {
+                clickTimerAdmin = setTimeout(() => { clickCountAdmin = 0; }, 2000);
+            }
+        }
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('opacity-0');
+            setTimeout(() => document.getElementById('admin-login-modal').classList.add('hidden'), 300);
+        }
+
+        // Login ke Serverless API Vercel (seperti setup sebelumnya)
+        async function handleLoginSubmit(e) {
             e.preventDefault();
+            const inputSandi = document.getElementById('admin-password').value;
+            const errorText = document.getElementById('login-error');
+            const btn = document.getElementById('btn-login');
+            
+            errorText.classList.add('hidden');
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Memverifikasi...';
+            btn.disabled = true;
+
+            try {
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: inputSandi })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    closeAdminLogin();
+                    document.getElementById('public-area').classList.add('hidden');
+                    document.getElementById('main-nav').classList.add('hidden'); // sembunyikan nav publik
+                    document.getElementById('admin-area').classList.remove('hidden');
+                } else {
+                    errorText.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Kredensial tidak valid!';
+                    errorText.classList.remove('hidden'); 
+                }
+            } catch (err) {
+                // FALLBACK JIKA DIBUKA DI LOKAL (BUKAN VERCEL) UNTUK TESTING
+                // Hapus ini jika sudah benar-benar jalan di Vercel agar aman murni.
+                if(inputSandi === 'santai123') {
+                    closeAdminLogin();
+                    document.getElementById('public-area').classList.add('hidden');
+                    document.getElementById('main-nav').classList.add('hidden');
+                    document.getElementById('admin-area').classList.remove('hidden');
+                } else {
+                    errorText.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Kredensial tidak valid! (Lokal mode)';
+                    errorText.classList.remove('hidden');
+                }
+            } finally {
+                btn.innerText = 'Buka Akses';
+                btn.disabled = false;
+            }
+        }
+
+        function logoutAdmin() {
+            document.getElementById('admin-area').classList.add('hidden');
+            document.getElementById('public-area').classList.remove('hidden');
+            document.getElementById('main-nav').classList.remove('hidden');
+        }
+
+        // --- BULK JSON DRAFT LOGIC ---
+        function saveDraftToLocal() {
+            localStorage.setItem('casacurva_draft', JSON.stringify(draftProducts));
+            renderDraftList();
+        }
+
+        function addDraft(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('p-name').value;
+            const price = parseInt(document.getElementById('p-price').value);
+            const qty = parseInt(document.getElementById('p-qty').value);
+            const desc = document.getElementById('p-desc').value;
+            const rawImageName = document.getElementById('p-image-name').value.trim();
+            
+            // Format format file agar pasti masuk assets
+            // Jika admin ketik "assets/foto.jpg" tidak akan jadi "assets/assets/foto.jpg"
+            const finalImageName = rawImageName.startsWith("assets/") ? rawImageName : "assets/" + rawImageName;
+
             const newProduct = {
                 id: Date.now().toString(),
-                name: document.getElementById('p-name').value,
-                price: parseInt(document.getElementById('p-price').value),
-                qty: parseInt(document.getElementById('p-qty').value),
-                description: document.getElementById('p-desc').value,
-                images: ["assets/" + document.getElementById('p-image-name').value.trim()]
+                name: name,
+                price: price,
+                qty: qty,
+                description: desc,
+                images: [finalImageName]
             };
-            document.getElementById('json-output').value = JSON.stringify(newProduct, null, 2);
-            document.getElementById('json-result-area').classList.remove('hidden');
+
+            draftProducts.push(newProduct);
+            saveDraftToLocal();
+            
+            // Reset Form & Efek Sukses
+            e.target.reset();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const ori = btn.innerHTML;
+            btn.innerHTML = `<i class="fa-solid fa-check"></i> Masuk Draft`;
+            btn.classList.add('bg-green-600');
+            setTimeout(() => { btn.innerHTML = ori; btn.classList.remove('bg-green-600'); }, 1500);
         }
-        function copyJSON() {
-            const textarea = document.getElementById('json-output');
-            textarea.select();
-            document.execCommand('copy');
-            alert("Kode JSON berhasil di-copy!");
+
+        function renderDraftList() {
+            const tbody = document.getElementById('draft-list-body');
+            tbody.innerHTML = '';
+            
+            if(draftProducts.length === 0) {
+                tbody.innerHTML = `<tr><td colSpan="5" class="p-8 text-center text-gray-400">Belum ada data di draft. Silakan input dari form kiri.</td></tr>`;
+                return;
+            }
+
+            draftProducts.forEach((item, index) => {
+                tbody.innerHTML += `
+                    <tr class="border-b border-gray-50 hover:bg-brand-soft/30 transition-colors">
+                        <td class="p-4 text-center text-gray-400 text-sm">${index + 1}</td>
+                        <td class="p-4">
+                            <div class="font-bold text-brand-green line-clamp-1">${item.name}</div>
+                            <div class="text-[10px] font-mono text-brand-gold mt-1 bg-brand-gold/10 inline-block px-2 py-0.5 rounded">${item.images[0]}</div>
+                        </td>
+                        <td class="p-4 text-sm font-medium text-gray-700">${formatRupiah(item.price)}</td>
+                        <td class="p-4 text-center">
+                            <span class="inline-block bg-gray-100 px-3 py-1 rounded text-xs font-bold text-gray-600">${item.qty}</span>
+                        </td>
+                        <td class="p-4 text-center">
+                            <button onclick="removeDraft(${index})" class="text-red-400 hover:bg-red-50 hover:text-red-600 w-8 h-8 rounded-lg transition-colors" title="Hapus Draft">
+                                <i class="fa-solid fa-xmark"></i>
+                            </button>
+                        </td>
+                    </tr>
+                `;
+            });
+        }
+
+        function removeDraft(index) {
+            draftProducts.splice(index, 1);
+            saveDraftToLocal();
+        }
+
+        function clearDraft() {
+            if(draftProducts.length === 0) return;
+            if(confirm("Yakin ingin menghapus semua draft yang belum diunduh?")) {
+                draftProducts = [];
+                saveDraftToLocal();
+            }
+        }
+
+        function downloadJSON() {
+            if(draftProducts.length === 0) return alert('Draft masih kosong! Tambahkan minimal 1 produk.');
+            
+            // Format menjadi String JSON rapi
+            const jsonString = JSON.stringify(draftProducts, null, 2);
+            
+            // Buat Blob dan Link Download
+            const blob = new Blob([jsonString], { type: "application/json" });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement("a");
+            a.href = url;
+            a.download = "data.json";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            alert("File data.json berhasil diunduh!\n\nSelanjutnya:\n1. Buka repositori GitHub Anda.\n2. Hapus/Timpa file data.json lama dengan file yang baru Anda unduh ini.");
         }
     </script>
 </body>
