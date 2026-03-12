@@ -46,9 +46,9 @@
     <div id="public-area" class="block">
         <nav class="sticky top-0 z-40 bg-brand-green/95 backdrop-blur-md border-b border-brand-gold/20 shadow-lg">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <!-- Area Rahasia (Klik 5x) -->
                 <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="handleLogoClick()" title="Casa Curva Studio">
                     <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold bg-white p-0.5 relative transition-transform group-hover:scale-105 shadow-md">
-                        <!-- Mengarah ke folder assets -->
                         <img src="assets/logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-full bg-brand-green" onerror="this.src='https://via.placeholder.com/150/162A20/D4AF37?text=CC'">
                     </div>
                     <div class="flex flex-col">
@@ -84,13 +84,12 @@
                 </div>
                 <div id="empty-catalog" class="hidden text-center text-gray-500 py-20">
                     <i class="fa-solid fa-box-open text-6xl mb-4 text-gray-300"></i>
-                    <h3 class="text-xl font-medium">Gagal memuat katalog atau JSON kosong</h3>
+                    <h3 class="text-xl font-medium">Katalog masih kosong</h3>
                 </div>
             </div>
         </div>
 
         <div id="view-cart" class="hidden bg-brand-light py-12 px-4 sm:px-6 lg:px-8 min-h-screen fade-in">
-            <!-- Isi Keranjang Sama -->
             <div class="max-w-5xl mx-auto">
                 <button onclick="showPublicView('home')" class="mb-8 font-medium text-gray-600 hover:text-brand-green"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
                 <h2 class="text-3xl font-serif text-brand-green mb-8">Keranjang Belanja</h2>
@@ -121,12 +120,14 @@
         <div class="bg-white rounded-3xl p-8 max-w-md w-full relative scale-up">
             <button onclick="closeAdminLogin()" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark text-xl"></i></button>
             <div class="text-center mb-8">
-                <h2 class="text-2xl font-serif text-brand-green font-bold">Admin JSON Generator</h2>
-                <p class="text-sm text-gray-500">Alat bantu untuk memformat data ke GitHub</p>
+                <h2 class="text-2xl font-serif text-brand-green font-bold">Akses Admin</h2>
+                <p class="text-sm text-gray-500">Terhubung ke Vercel Serverless</p>
             </div>
             <form onsubmit="handleLoginSubmit(event)" class="space-y-6">
-                <input type="password" id="admin-password" placeholder="Sandi: santai123" class="w-full px-4 py-3 bg-gray-50 border rounded-xl" required />
-                <button type="submit" class="w-full bg-brand-gold text-brand-green py-3 rounded-xl font-bold text-lg">Masuk</button>
+                <!-- Sandi diisi di Vercel Env Var -->
+                <input type="password" id="admin-password" placeholder="Masukkan Kata Sandi..." class="w-full px-4 py-3 bg-gray-50 border rounded-xl" required autocomplete="off" />
+                <p id="login-error" class="text-red-500 text-sm mt-2 hidden"><i class="fa-solid fa-circle-exclamation"></i> Kata sandi salah!</p>
+                <button type="submit" id="btn-login" class="w-full bg-brand-gold text-brand-green py-3 rounded-xl font-bold text-lg">Masuk</button>
             </form>
         </div>
     </div>
@@ -139,51 +140,38 @@
         </header>
 
         <div class="max-w-4xl mx-auto px-4 mt-8">
-            
             <div class="bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-xl mb-8 flex gap-4 items-start">
                 <i class="fa-solid fa-circle-info text-xl mt-1"></i>
                 <div>
                     <h4 class="font-bold">Panduan Integrasi GitHub:</h4>
-                    <p class="text-sm mt-1">Karena website ini dihosting statis di Vercel, Anda tidak bisa mengupload file langsung dari halaman ini. Gunakan form di bawah untuk membuat <strong>Kode JSON</strong> produk. Copy kode tersebut, lalu paste ke dalam file <code>data.json</code> di GitHub Anda. Jangan lupa upload foto secara manual ke folder <code>/assets/</code> di GitHub.</p>
+                    <p class="text-sm mt-1">Gunakan form di bawah untuk membuat <strong>Kode JSON</strong> produk. Copy kode tersebut, lalu paste ke dalam file <code>data.json</code> di GitHub Anda. Jangan lupa upload foto secara manual ke folder <code>/assets/</code> di GitHub.</p>
                 </div>
             </div>
 
-            <!-- Form JSON Generator -->
             <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
                 <h2 class="text-xl font-bold mb-6 border-b pb-3">Buat Data Produk Baru</h2>
                 <form id="add-product-form" onsubmit="generateJSON(event)" class="space-y-4">
-                    <input type="text" id="p-name" placeholder="Nama Produk (Sofa Hijau)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
+                    <input type="text" id="p-name" placeholder="Nama Produk (Contoh: Sofa Hijau)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
                     <div class="grid grid-cols-2 gap-4">
-                        <input type="number" id="p-price" placeholder="Harga (Contoh: 8500000)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
+                        <input type="number" id="p-price" placeholder="Harga (Tanpa Titik)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
                         <input type="number" id="p-qty" placeholder="Stok (Contoh: 5)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
                     </div>
                     <textarea id="p-desc" placeholder="Deskripsi Lengkap" required rows="3" class="w-full px-4 py-2 bg-gray-50 border rounded-lg"></textarea>
                     
                     <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama File Foto yang akan diupload ke GitHub (dengan ekstensi):</label>
-                        <input type="text" id="p-image-name" placeholder="Contoh: sofa-hijau-baru.jpg" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
-                        <p class="text-xs text-gray-500 mt-1">Pastikan nama ini sama persis dengan nama foto yang Anda upload ke folder /assets/ di GitHub.</p>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama File Foto yang diupload ke GitHub:</label>
+                        <input type="text" id="p-image-name" placeholder="Contoh: sofa-hijau.jpg" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
                     </div>
                     
                     <button type="submit" class="w-full bg-brand-green text-white py-3 rounded-xl font-bold">Generate JSON</button>
                 </form>
 
-                <!-- Hasil Generate -->
                 <div id="json-result-area" class="mt-8 hidden">
-                    <h3 class="font-bold text-gray-700 mb-2">1. Copy Kode JSON ini:</h3>
+                    <h3 class="font-bold text-gray-700 mb-2">Copy Kode JSON ini:</h3>
                     <div class="relative">
                         <textarea id="json-output" rows="10" class="w-full px-4 py-3 bg-gray-900 text-green-400 font-mono text-sm rounded-xl border border-gray-700" readonly></textarea>
                         <button onclick="copyJSON()" class="absolute top-2 right-2 bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-xs">Copy</button>
                     </div>
-                    
-                    <h3 class="font-bold text-gray-700 mt-6 mb-2">2. Langkah Selanjutnya:</h3>
-                    <ul class="list-decimal pl-5 text-sm text-gray-600 space-y-2">
-                        <li>Buka repositori GitHub Anda.</li>
-                        <li>Edit file <code>data.json</code>. Tambahkan tanda koma <code>,</code> di akhir produk terakhir, lalu <strong>Paste</strong> kode di atas.</li>
-                        <li>Buka folder <code>assets</code> di GitHub. Klik <strong>Add file -> Upload files</strong>.</li>
-                        <li>Upload file foto Anda dan pastikan namanya persis: <strong id="cek-nama-file" class="text-brand-green"></strong>.</li>
-                        <li>Commit perubahan. Vercel akan otomatis merender ulang website dalam ~30 detik.</li>
-                    </ul>
                 </div>
             </div>
         </div>
@@ -208,48 +196,29 @@
     </div>
 
     <script>
-        // Utilities
         const formatRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
-        
-        // Data State
         let products = [];
         let cart = JSON.parse(localStorage.getItem('casacurva_cart')) || [];
 
-        // ================= FETCH DATA DARI JSON =================
         async function fetchProducts() {
             try {
-                // Mencari file data.json di folder yang sama
                 const response = await fetch('./data.json');
                 if (!response.ok) throw new Error('data.json tidak ditemukan');
-                
                 products = await response.json();
-                
                 document.getElementById('loading-catalog').classList.add('hidden');
                 renderHome();
                 renderCart();
                 updateCartBadge();
             } catch (error) {
-                console.error("Error fetching data:", error);
-                // Fallback sementara jika data.json belum dibuat
                 document.getElementById('loading-catalog').classList.add('hidden');
-                
-                // MOCK DATA supaya tampilan tidak kosong saat test awal
-                products = [
-                    { id: '1', name: 'Contoh: Sofa Chesterfield Emerald', price: 8500000, qty: 5, description: 'Sofa elegan...', images: ['assets/sofa.jpg'] }
-                ];
+                products = [ { id: '1', name: 'Contoh: Sofa Emerald', price: 8500000, qty: 5, description: 'Menampilkan data simulasi.', images: ['assets/sofa.jpg'] } ];
                 renderHome();
-                
-                const errDiv = document.getElementById('empty-catalog');
-                errDiv.classList.remove('hidden');
-                errDiv.innerHTML = `<h3 class="text-xl font-medium text-red-500 mb-2">Peringatan: File data.json tidak ditemukan</h3><p class="text-sm">Menampilkan data simulasi. Silakan buat file <code>data.json</code> dan folder <code>assets/</code> di server Anda.</p>`;
+                document.getElementById('empty-catalog').classList.remove('hidden');
+                document.getElementById('empty-catalog').innerHTML = `<h3 class="text-xl font-medium text-red-500 mb-2">Peringatan: data.json tidak ditemukan</h3><p class="text-sm">Buat file <code>data.json</code> di GitHub Anda.</p>`;
             }
         }
-
-        // Panggil saat halaman dimuat
         document.addEventListener('DOMContentLoaded', fetchProducts);
 
-
-        // ================= NAVIGATION =================
         function showPublicView(view) {
             document.getElementById('view-home').classList.add('hidden');
             document.getElementById('view-cart').classList.add('hidden');
@@ -257,13 +226,14 @@
             window.scrollTo(0,0);
         }
 
-        // ================= ADMIN TRIGGER =================
         let clickCount = 0; let clickTimer = null;
         function handleLogoClick() {
             clickCount++;
             if(clickTimer) clearTimeout(clickTimer);
             if (clickCount >= 5) {
                 clickCount = 0;
+                document.getElementById('admin-password').value = '';
+                document.getElementById('login-error').classList.add('hidden');
                 document.getElementById('admin-login-modal').classList.remove('hidden');
                 setTimeout(() => document.getElementById('admin-login-modal').classList.remove('opacity-0'), 10);
             } else {
@@ -274,26 +244,60 @@
             document.getElementById('admin-login-modal').classList.add('opacity-0');
             setTimeout(() => document.getElementById('admin-login-modal').classList.add('hidden'), 300);
         }
-        function handleLoginSubmit(e) {
+
+        // =====================================================================
+        // LOGIKA LOGIN MELALUI API VERCEL (SUPER AMAN)
+        // =====================================================================
+        async function handleLoginSubmit(e) {
             e.preventDefault();
-            if (document.getElementById('admin-password').value === 'santai123') {
-                closeAdminLogin();
-                document.getElementById('public-area').classList.add('hidden');
-                document.getElementById('admin-area').classList.remove('hidden');
-            } else { alert("Sandi salah!"); }
+            const inputSandi = document.getElementById('admin-password').value;
+            const errorText = document.getElementById('login-error');
+            const btn = document.getElementById('btn-login');
+            
+            errorText.classList.add('hidden');
+            btn.innerText = 'Mengecek...';
+            btn.disabled = true;
+
+            try {
+                // Memanggil file api/login.js di Vercel
+                const response = await fetch('/api/login', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ password: inputSandi })
+                });
+
+                const data = await response.json();
+
+                if (response.ok && data.success) {
+                    // Jika API Vercel bilang Benar
+                    closeAdminLogin();
+                    document.getElementById('public-area').classList.add('hidden');
+                    document.getElementById('admin-area').classList.remove('hidden');
+                } else {
+                    // Jika API Vercel bilang Salah
+                    errorText.innerText = "Kata sandi salah!";
+                    errorText.classList.remove('hidden'); 
+                }
+            } catch (err) {
+                // Jika error saat koneksi atau belum dihosting di Vercel
+                errorText.innerText = "Error: Fitur login ini hanya berfungsi jika sudah dihosting di Vercel (karena butuh Serverless API).";
+                errorText.classList.remove('hidden'); 
+                console.error("Gagal memanggil API Vercel:", err);
+            } finally {
+                btn.innerText = 'Masuk';
+                btn.disabled = false;
+            }
         }
+
         function logoutAdmin() {
             document.getElementById('admin-area').classList.add('hidden');
             document.getElementById('public-area').classList.remove('hidden');
         }
 
-        // ================= RENDER HOME =================
         function renderHome() {
             const grid = document.getElementById('products-grid');
             grid.innerHTML = '';
-            
             products.forEach(p => {
-                // Rujukan ke folder assets
                 const img = p.images?.[0] || 'https://via.placeholder.com/800?text=Gambar+Kosong';
                 grid.innerHTML += `
                     <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer" onclick="openProductModal('${p.id}')">
@@ -310,7 +314,6 @@
             });
         }
 
-        // ================= MODAL =================
         let currentModalProduct = null;
         function openProductModal(id) {
             currentModalProduct = products.find(p => p.id === id);
@@ -319,7 +322,6 @@
             document.getElementById('modal-price').innerText = formatRupiah(currentModalProduct.price);
             document.getElementById('modal-desc').innerText = currentModalProduct.description;
             document.getElementById('modal-main-image').src = currentModalProduct.images?.[0] || '';
-            
             const modal = document.getElementById('product-modal');
             modal.classList.remove('hidden');
             setTimeout(() => modal.classList.remove('opacity-0'), 10);
@@ -330,7 +332,6 @@
             setTimeout(() => modal.classList.add('hidden'), 300);
         }
 
-        // ================= CART =================
         function fastAddToCart(id) {
             const p = products.find(i => i.id === id);
             if(p) { addToCart(p, 1); alert("Masuk ke keranjang!"); }
@@ -366,11 +367,9 @@
             document.getElementById('cart-content').classList.remove('hidden');
             document.getElementById('cart-content').classList.add('grid');
             cont.innerHTML = ''; let tot = 0;
-            
             cart.forEach(item => {
                 const dbProduct = products.find(p => p.id === item.id);
                 const currentPrice = dbProduct ? dbProduct.price : item.price;
-                
                 tot += (currentPrice * item.qty);
                 const img = item.images?.[0] || 'https://via.placeholder.com/150';
                 cont.innerHTML += `
@@ -399,43 +398,24 @@
             window.open(`https://wa.me/6283825770066?text=${encodeURIComponent(t)}`, '_blank');
         }
 
-        // ================= ADMIN JSON GENERATOR =================
         function generateJSON(e) {
             e.preventDefault();
-            
-            const name = document.getElementById('p-name').value;
-            const price = parseInt(document.getElementById('p-price').value);
-            const qty = parseInt(document.getElementById('p-qty').value);
-            const desc = document.getElementById('p-desc').value;
-            const imageName = document.getElementById('p-image-name').value.trim();
-            
-            // Format format file agar tidak salah masuk folder
-            const formattedImagePath = "assets/" + imageName;
-            
-            // Buat objek produk
             const newProduct = {
                 id: Date.now().toString(),
-                name: name,
-                price: price,
-                qty: qty,
-                description: desc,
-                images: [formattedImagePath]
+                name: document.getElementById('p-name').value,
+                price: parseInt(document.getElementById('p-price').value),
+                qty: parseInt(document.getElementById('p-qty').value),
+                description: document.getElementById('p-desc').value,
+                images: ["assets/" + document.getElementById('p-image-name').value.trim()]
             };
-
-            // Ubah jadi teks JSON (indentasi 2 spasi agar rapi)
-            const jsonText = JSON.stringify(newProduct, null, 2);
-
-            document.getElementById('json-output').value = jsonText;
-            document.getElementById('cek-nama-file').innerText = imageName;
-            
+            document.getElementById('json-output').value = JSON.stringify(newProduct, null, 2);
             document.getElementById('json-result-area').classList.remove('hidden');
         }
-
         function copyJSON() {
             const textarea = document.getElementById('json-output');
             textarea.select();
             document.execCommand('copy');
-            alert("Kode JSON berhasil di-copy! Silakan paste ke data.json di GitHub.");
+            alert("Kode JSON berhasil di-copy!");
         }
     </script>
 </body>
