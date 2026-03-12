@@ -1,26 +1,50 @@
 [
   {
-    "id": "1773324128472",
-    "name": "Kayo mahoni",
-    "price": 85000,
-    "qty": 6,
-    "description": "Oke bolo",
-    "images": [
-      "assets/kursi.jpg"
-    ],
+    "id": "item_1700000000001",
+    "name": "Sofa Chesterfield Emerald Velvet",
     "category": "Sofa",
-    "unlimited": false
+    "price": 8500000,
+    "qty": 3,
+    "unlimited": false,
+    "description": "Menghadirkan pesona klasik ke dalam ruang tamu Anda. Sofa Chesterfield ini dibalut dengan kain velvet premium berwarna Hijau Zamrud (Emerald Green) yang terasa sangat lembut di kulit.\n\nSetiap lekukannya dijahit tangan dengan teknik tufting yang presisi, didukung oleh rangka kayu mahoni solid yang menjamin ketahanan hingga puluhan tahun. Dudukan berbahan busa dacron high-density memberikan kenyamanan paripurna, tidak mudah kempes walau diduduki berjam-jam.\n\nDimensi:\n• Panjang: 220 cm\n• Lebar: 90 cm\n• Tinggi: 85 cm\n\nSebuah mahakarya yang akan menjadi pusat perhatian di ruangan mana pun ia diletakkan.",
+    "images": [
+      "https://images.unsplash.com/photo-1555041469-a586c61ea9bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
   },
   {
-    "id": "1773326322293",
-    "name": "Sofa kuning",
-    "category": "Sofa",
-    "price": 85000,
+    "id": "item_1700000000002",
+    "name": "Nordic Ottoman Bench",
+    "category": "Bench",
+    "price": 2100000,
     "qty": -1,
     "unlimited": true,
-    "description": "Oke barangnya",
+    "description": "Bench elegan bergaya Skandinavia ini adalah solusi sempurna untuk melengkapi ujung tempat tidur Anda atau sebagai tempat duduk tambahan di lorong ruang ganti.\n\nDidesain dengan siluet minimalis, bench ini menggunakan perpaduan dudukan berlapis kain linen linen-blend bertekstur warna Oatmeal dan kaki-kaki kayu oak natural yang memberikan nuansa hangat. Lapisan busanya cukup tebal untuk memastikan kenyamanan tanpa mengurangi ketegasan garis desainnya.\n\nDimensi:\n• Panjang: 120 cm\n• Lebar: 45 cm\n• Tinggi: 42 cm\n\nCantik, fungsional, dan tidak memakan banyak ruang visual.",
     "images": [
-      "assets/lemari.jpg"
+      "https://images.unsplash.com/photo-1567538096630-e0c55bd6374c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "item_1700000000003",
+    "name": "Buffet Kabinet Walnut Mid-Century",
+    "category": "Buffet",
+    "price": 5400000,
+    "qty": 5,
+    "unlimited": false,
+    "description": "Membawa kembali nuansa estetika era 50-an (Mid-Century Modern) ke era kontemporer. Buffet Kabinet ini bukan sekadar tempat penyimpanan, melainkan sebuah pernyataan gaya.\n\nDibuat dari kayu jati pilihan dengan finishing warna Walnut yang mengekspos serat kayu alami yang indah. Dilengkapi dengan pintu geser beralur (tambour) yang mulus dan gagang kuningan (brass) antik. Di bagian dalamnya terdapat rak adjustable yang sangat luas untuk menyimpan koleksi piring keramik, vinyl, atau dokumen penting Anda.\n\nDimensi:\n• Panjang: 160 cm\n• Lebar: 40 cm\n• Tinggi: 75 cm\n\nSangat ideal diletakkan di ruang makan atau sebagai credenza di ruang keluarga.",
+    "images": [
+      "https://images.unsplash.com/photo-1595514535315-22070ce4d754?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+    ]
+  },
+  {
+    "id": "item_1700000000004",
+    "name": "Nakas Nakita Marble Top",
+    "category": "Nakas",
+    "price": 1850000,
+    "qty": 12,
+    "unlimited": false,
+    "description": "Teman setia di samping tempat tidur Anda. Nakas Nakita mengombinasikan kemewahan dan fungsi dalam satu wujud yang ringkas.\n\nPermukaan meja menggunakan marmer Carrara asli berwarna putih dengan guratan abu-abu alami, memberikan kesan dingin yang mewah. Bagian laci menggunakan lapisan veneer kayu Ash berwarna terang, ditarik dengan sistem push-to-open tanpa gagang untuk mempertahankan siluet clean-nya. Kaki besi tipis berwarna emas (gold) memberikan ilusi nakas ini mengambang ringan di udara.\n\nDimensi:\n• Panjang: 50 cm\n• Lebar: 40 cm\n• Tinggi: 55 cm\n\nSempurna untuk meletakkan lampu tidur, buku bacaan malam, dan segelas air.",
+    "images": [
+      "https://images.unsplash.com/photo-1532372320572-cda25653a26d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
     ]
   }
 ]
