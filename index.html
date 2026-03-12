@@ -110,7 +110,7 @@
                     <span class="text-brand-gold text-sm font-semibold tracking-widest uppercase mb-4 pulse-soft">casacurva.id</span>
                     <h1 class="text-4xl md:text-6xl lg:text-7xl font-serif text-white mb-6 leading-tight text-balance flex flex-col items-center gap-2">
                         <span>Sofa & Cabinet Studio</span>
-                        <span id="dynamic-hero-text" class="text-brand-gold italic text-transition text-in">Mempesona</span>
+                        <span id="dynamic-hero-text" class="text-brand-gold italic text-transition text-in">Elegan</span>
                     </h1>
                     <p class="text-brand-soft/80 max-w-2xl text-lg md:text-xl font-light mb-10 text-balance leading-relaxed">
                         Temukan koleksi sofa, buffet, dan nakas yang menghadirkan sentuhan elegan untuk ruang Anda, jelajahi katalog kami dan temukan desain yang paling sesuai dengan gaya Anda.
@@ -127,9 +127,9 @@
                     <div class="w-full md:w-auto overflow-x-auto hide-scrollbar flex items-center gap-2 pb-2 md:pb-0" id="category-filters">
                         <button onclick="setCategory('Semua')" class="filter-btn active shrink-0 px-5 py-2 rounded-full text-sm font-bold bg-brand-green text-brand-gold transition-colors">Semua</button>
                         <button onclick="setCategory('Sofa')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Sofa</button>
-                        <button onclick="setCategory('Kabinet')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Kabinet</button>
-                        <button onclick="setCategory('Meja')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Meja</button>
-                        <button onclick="setCategory('Dekorasi')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Dekorasi</button>
+                        <button onclick="setCategory('Bench')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Bench</button>
+                        <button onclick="setCategory('Buffet')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Buffet</button>
+                        <button onclick="setCategory('Nakas')" class="filter-btn shrink-0 px-5 py-2 rounded-full text-sm font-medium bg-brand-soft text-gray-600 hover:bg-brand-gold hover:text-white transition-colors">Nakas</button>
                     </div>
                     <div class="relative w-full md:w-72 group">
                         <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 group-focus-within:text-brand-gold transition-colors"></i>
@@ -349,9 +349,9 @@
                                 <label class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1 block">Kategori</label>
                                 <select id="p-category" required class="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-brand-gold outline-none transition-all text-sm font-medium text-gray-700">
                                     <option value="Sofa">Sofa</option>
-                                    <option value="Kabinet">Kabinet</option>
-                                    <option value="Meja">Meja</option>
-                                    <option value="Dekorasi">Dekorasi</option>
+                                    <option value="Bench">Bench</option>
+                                    <option value="Buffet">Buffet</option>
+                                    <option value="Nakas">Nakas</option>
                                     <option value="Lainnya">Lainnya</option>
                                 </select>
                             </div>
@@ -466,7 +466,7 @@
         }
 
         // --- Teks Hero Dinamis ---
-        const heroPhrases = ["Mempesona", "Menenangkan", "Menginspirasi", "Abadi", "Berbicara"];
+        const heroPhrases = ["Elegan", "Fungsional", "Presisi", "Berkelas", "Modern"];
         let phraseIndex = 0;
         setInterval(() => {
             const el = document.getElementById('dynamic-hero-text');
