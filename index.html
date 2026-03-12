@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casa Curva | Sofa & Cabinet Studio</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: { green: '#162A20', gold: '#D4AF37', light: '#F9F7F3', dark: '#0f1d16' }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'], sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #F9F7F3; overflow-x: hidden; }
+        .font-serif { font-family: '"Playfair Display"', serif; }
+        .fade-in { animation: fadeIn 0.3s ease-out forwards; }
+        .fade-in-up { animation: fadeInUp 0.5s ease-out forwards; }
+        .scale-up { animation: scaleUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes scaleUp { from { opacity: 0; transform: scale(0.95); } to { opacity: 1; transform: scale(1); } }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #f1f1f1; }
+        ::-webkit-scrollbar-thumb { background: #D4AF37; border-radius: 10px; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="text-gray-800 antialiased">
+
+    <!-- AREA PUBLIK -->
+    <div id="public-area" class="block">
+        <nav class="sticky top-0 z-40 bg-brand-green/95 backdrop-blur-md border-b border-brand-gold/20 shadow-lg">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+                <div class="flex items-center gap-3 cursor-pointer select-none group" onclick="handleLogoClick()" title="Casa Curva Studio">
+                    <div class="w-12 h-12 rounded-full overflow-hidden border-2 border-brand-gold bg-white p-0.5 relative transition-transform group-hover:scale-105 shadow-md">
+                        <!-- Mengarah ke folder assets -->
+                        <img src="assets/logo.jpg" alt="Logo" class="w-full h-full object-contain rounded-full bg-brand-green" onerror="this.src='https://via.placeholder.com/150/162A20/D4AF37?text=CC'">
+                    </div>
+                    <div class="flex flex-col">
+                        <span class="font-serif text-2xl font-bold text-white tracking-wide leading-none">Casa<span class="text-brand-gold">Curva</span></span>
+                    </div>
+                </div>
+                <button onclick="showPublicView('cart')" class="relative p-2 text-white hover:text-brand-gold transition-colors">
+                    <i class="fa-solid fa-bag-shopping text-2xl"></i>
+                    <span id="cart-badge" class="absolute top-0 right-0 -mt-1 -mr-1 bg-brand-gold text-brand-green font-bold text-xs w-5 h-5 rounded-full flex items-center justify-center hidden shadow-md">0</span>
+                </button>
+            </div>
+        </nav>
+
+        <div id="view-home" class="block fade-in">
+            <div class="relative h-[60vh] bg-brand-green overflow-hidden">
+                <div class="absolute inset-0 bg-gradient-to-t from-brand-green to-transparent z-10"></div>
+                <div class="relative h-full flex flex-col items-center justify-center text-center px-4 fade-in-up z-20">
+                    <h1 class="text-4xl md:text-6xl font-serif text-white mb-4 drop-shadow-lg">Elegansi di Setiap <span class="text-brand-gold italic">Sudut</span></h1>
+                    <a href="#katalog" class="bg-brand-gold text-brand-green px-8 py-3 rounded-full font-semibold hover:bg-white hover:scale-105 transition-all shadow-xl mt-8">Lihat Koleksi</a>
+                </div>
+            </div>
+
+            <div id="katalog" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+                <div class="text-center mb-16 fade-in-up">
+                    <h2 class="text-3xl font-serif text-brand-green mb-3">Katalog Eksklusif</h2>
+                    <div class="w-24 h-1 bg-brand-gold mx-auto rounded-full"></div>
+                </div>
+                <div id="products-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
+                    <div class="col-span-full text-center py-10 text-gray-400" id="loading-catalog">
+                        <i class="fa-solid fa-circle-notch fa-spin text-4xl mb-3 text-brand-gold"></i>
+                        <p>Mengambil data dari data.json...</p>
+                    </div>
+                </div>
+                <div id="empty-catalog" class="hidden text-center text-gray-500 py-20">
+                    <i class="fa-solid fa-box-open text-6xl mb-4 text-gray-300"></i>
+                    <h3 class="text-xl font-medium">Gagal memuat katalog atau JSON kosong</h3>
+                </div>
+            </div>
+        </div>
+
+        <div id="view-cart" class="hidden bg-brand-light py-12 px-4 sm:px-6 lg:px-8 min-h-screen fade-in">
+            <!-- Isi Keranjang Sama -->
+            <div class="max-w-5xl mx-auto">
+                <button onclick="showPublicView('home')" class="mb-8 font-medium text-gray-600 hover:text-brand-green"><i class="fa-solid fa-arrow-left"></i> Kembali</button>
+                <h2 class="text-3xl font-serif text-brand-green mb-8">Keranjang Belanja</h2>
+                <div id="empty-cart" class="hidden bg-white rounded-3xl p-16 text-center shadow-sm">
+                    <h3 class="text-2xl font-semibold mb-2">Keranjang Anda Kosong</h3>
+                </div>
+                <div id="cart-content" class="hidden grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <div class="lg:col-span-2 space-y-4" id="cart-items-container"></div>
+                    <div class="lg:col-span-1">
+                        <div class="bg-white p-6 rounded-3xl shadow-sm sticky top-28">
+                            <h3 class="text-xl font-serif font-bold border-b pb-4 mb-4 text-brand-green">Ringkasan</h3>
+                            <div class="flex justify-between items-center mb-8 text-xl font-bold text-brand-green">
+                                <span>Total</span>
+                                <span id="cart-total-price" class="text-brand-gold">Rp 0</span>
+                            </div>
+                            <button onclick="checkoutWA()" class="w-full bg-brand-green text-white py-4 rounded-xl font-bold flex items-center justify-center gap-3">
+                                <i class="fa-brands fa-whatsapp text-2xl text-green-400"></i> Checkout WhatsApp
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL ADMIN LOGIN -->
+    <div id="admin-login-modal" class="hidden fixed inset-0 z-50 items-center justify-center p-4 bg-brand-green/90 backdrop-blur-md opacity-0 transition-opacity">
+        <div class="bg-white rounded-3xl p-8 max-w-md w-full relative scale-up">
+            <button onclick="closeAdminLogin()" class="absolute top-4 right-4 text-gray-400"><i class="fa-solid fa-xmark text-xl"></i></button>
+            <div class="text-center mb-8">
+                <h2 class="text-2xl font-serif text-brand-green font-bold">Admin JSON Generator</h2>
+                <p class="text-sm text-gray-500">Alat bantu untuk memformat data ke GitHub</p>
+            </div>
+            <form onsubmit="handleLoginSubmit(event)" class="space-y-6">
+                <input type="password" id="admin-password" placeholder="Sandi: santai123" class="w-full px-4 py-3 bg-gray-50 border rounded-xl" required />
+                <button type="submit" class="w-full bg-brand-gold text-brand-green py-3 rounded-xl font-bold text-lg">Masuk</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- AREA ADMIN (JSON GENERATOR) -->
+    <div id="admin-area" class="hidden bg-gray-50 min-h-screen pb-20">
+        <header class="bg-brand-green text-white p-4 sticky top-0 z-30 flex justify-between items-center">
+            <h1 class="text-xl font-bold font-serif">Panel Admin <span class="text-brand-gold text-sm font-sans">(JSON Generator)</span></h1>
+            <button onclick="logoutAdmin()" class="bg-red-500/20 text-red-100 px-4 py-2 rounded-lg">Keluar</button>
+        </header>
+
+        <div class="max-w-4xl mx-auto px-4 mt-8">
+            
+            <div class="bg-blue-50 border border-blue-200 text-blue-800 p-4 rounded-xl mb-8 flex gap-4 items-start">
+                <i class="fa-solid fa-circle-info text-xl mt-1"></i>
+                <div>
+                    <h4 class="font-bold">Panduan Integrasi GitHub:</h4>
+                    <p class="text-sm mt-1">Karena website ini dihosting statis di Vercel, Anda tidak bisa mengupload file langsung dari halaman ini. Gunakan form di bawah untuk membuat <strong>Kode JSON</strong> produk. Copy kode tersebut, lalu paste ke dalam file <code>data.json</code> di GitHub Anda. Jangan lupa upload foto secara manual ke folder <code>/assets/</code> di GitHub.</p>
+                </div>
+            </div>
+
+            <!-- Form JSON Generator -->
+            <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-200">
+                <h2 class="text-xl font-bold mb-6 border-b pb-3">Buat Data Produk Baru</h2>
+                <form id="add-product-form" onsubmit="generateJSON(event)" class="space-y-4">
+                    <input type="text" id="p-name" placeholder="Nama Produk (Sofa Hijau)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
+                    <div class="grid grid-cols-2 gap-4">
+                        <input type="number" id="p-price" placeholder="Harga (Contoh: 8500000)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
+                        <input type="number" id="p-qty" placeholder="Stok (Contoh: 5)" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
+                    </div>
+                    <textarea id="p-desc" placeholder="Deskripsi Lengkap" required rows="3" class="w-full px-4 py-2 bg-gray-50 border rounded-lg"></textarea>
+                    
+                    <div>
+                        <label class="block text-sm font-bold text-gray-700 mb-1">Nama File Foto yang akan diupload ke GitHub (dengan ekstensi):</label>
+                        <input type="text" id="p-image-name" placeholder="Contoh: sofa-hijau-baru.jpg" required class="w-full px-4 py-2 bg-gray-50 border rounded-lg">
+                        <p class="text-xs text-gray-500 mt-1">Pastikan nama ini sama persis dengan nama foto yang Anda upload ke folder /assets/ di GitHub.</p>
+                    </div>
+                    
+                    <button type="submit" class="w-full bg-brand-green text-white py-3 rounded-xl font-bold">Generate JSON</button>
+                </form>
+
+                <!-- Hasil Generate -->
+                <div id="json-result-area" class="mt-8 hidden">
+                    <h3 class="font-bold text-gray-700 mb-2">1. Copy Kode JSON ini:</h3>
+                    <div class="relative">
+                        <textarea id="json-output" rows="10" class="w-full px-4 py-3 bg-gray-900 text-green-400 font-mono text-sm rounded-xl border border-gray-700" readonly></textarea>
+                        <button onclick="copyJSON()" class="absolute top-2 right-2 bg-white/20 hover:bg-white/40 text-white px-3 py-1 rounded text-xs">Copy</button>
+                    </div>
+                    
+                    <h3 class="font-bold text-gray-700 mt-6 mb-2">2. Langkah Selanjutnya:</h3>
+                    <ul class="list-decimal pl-5 text-sm text-gray-600 space-y-2">
+                        <li>Buka repositori GitHub Anda.</li>
+                        <li>Edit file <code>data.json</code>. Tambahkan tanda koma <code>,</code> di akhir produk terakhir, lalu <strong>Paste</strong> kode di atas.</li>
+                        <li>Buka folder <code>assets</code> di GitHub. Klik <strong>Add file -> Upload files</strong>.</li>
+                        <li>Upload file foto Anda dan pastikan namanya persis: <strong id="cek-nama-file" class="text-brand-green"></strong>.</li>
+                        <li>Commit perubahan. Vercel akan otomatis merender ulang website dalam ~30 detik.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- PRODUCT MODAL -->
+    <div id="product-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 hidden opacity-0 transition-opacity">
+        <div class="bg-white rounded-3xl overflow-hidden w-full max-w-5xl flex flex-col md:flex-row relative">
+            <button onclick="closeProductModal()" class="absolute top-4 right-4 z-20 w-10 h-10 bg-white/90 rounded-full shadow-lg"><i class="fa-solid fa-xmark"></i></button>
+            <div class="w-full md:w-1/2 bg-gray-100 flex flex-col h-64 md:h-[500px]">
+                <img id="modal-main-image" src="" class="w-full h-full object-cover" onerror="this.src='https://via.placeholder.com/800?text=Gambar+Belum+Di-upload'">
+            </div>
+            <div class="w-full md:w-1/2 p-8 flex flex-col">
+                <h2 id="modal-name" class="text-3xl font-serif font-bold mb-2">Name</h2>
+                <div id="modal-price" class="text-2xl font-bold text-brand-gold mb-4">Rp 0</div>
+                <p id="modal-desc" class="text-gray-600 mb-6 flex-grow whitespace-pre-line overflow-y-auto">Desc</p>
+                <div id="modal-action-area" class="flex gap-4">
+                    <button onclick="addToCartFromModal()" class="flex-grow bg-brand-green hover:bg-brand-gold transition-colors text-white h-14 rounded-full font-bold">Tambah ke Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Utilities
+        const formatRupiah = (num) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(num);
+        
+        // Data State
+        let products = [];
+        let cart = JSON.parse(localStorage.getItem('casacurva_cart')) || [];
+
+        // ================= FETCH DATA DARI JSON =================
+        async function fetchProducts() {
+            try {
+                // Mencari file data.json di folder yang sama
+                const response = await fetch('./data.json');
+                if (!response.ok) throw new Error('data.json tidak ditemukan');
+                
+                products = await response.json();
+                
+                document.getElementById('loading-catalog').classList.add('hidden');
+                renderHome();
+                renderCart();
+                updateCartBadge();
+            } catch (error) {
+                console.error("Error fetching data:", error);
+                // Fallback sementara jika data.json belum dibuat
+                document.getElementById('loading-catalog').classList.add('hidden');
+                
+                // MOCK DATA supaya tampilan tidak kosong saat test awal
+                products = [
+                    { id: '1', name: 'Contoh: Sofa Chesterfield Emerald', price: 8500000, qty: 5, description: 'Sofa elegan...', images: ['assets/sofa.jpg'] }
+                ];
+                renderHome();
+                
+                const errDiv = document.getElementById('empty-catalog');
+                errDiv.classList.remove('hidden');
+                errDiv.innerHTML = `<h3 class="text-xl font-medium text-red-500 mb-2">Peringatan: File data.json tidak ditemukan</h3><p class="text-sm">Menampilkan data simulasi. Silakan buat file <code>data.json</code> dan folder <code>assets/</code> di server Anda.</p>`;
+            }
+        }
+
+        // Panggil saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', fetchProducts);
+
+
+        // ================= NAVIGATION =================
+        function showPublicView(view) {
+            document.getElementById('view-home').classList.add('hidden');
+            document.getElementById('view-cart').classList.add('hidden');
+            document.getElementById(`view-${view}`).classList.remove('hidden');
+            window.scrollTo(0,0);
+        }
+
+        // ================= ADMIN TRIGGER =================
+        let clickCount = 0; let clickTimer = null;
+        function handleLogoClick() {
+            clickCount++;
+            if(clickTimer) clearTimeout(clickTimer);
+            if (clickCount >= 5) {
+                clickCount = 0;
+                document.getElementById('admin-login-modal').classList.remove('hidden');
+                setTimeout(() => document.getElementById('admin-login-modal').classList.remove('opacity-0'), 10);
+            } else {
+                clickTimer = setTimeout(() => { clickCount = 0; }, 2000);
+            }
+        }
+        function closeAdminLogin() {
+            document.getElementById('admin-login-modal').classList.add('opacity-0');
+            setTimeout(() => document.getElementById('admin-login-modal').classList.add('hidden'), 300);
+        }
+        function handleLoginSubmit(e) {
+            e.preventDefault();
+            if (document.getElementById('admin-password').value === 'santai123') {
+                closeAdminLogin();
+                document.getElementById('public-area').classList.add('hidden');
+                document.getElementById('admin-area').classList.remove('hidden');
+            } else { alert("Sandi salah!"); }
+        }
+        function logoutAdmin() {
+            document.getElementById('admin-area').classList.add('hidden');
+            document.getElementById('public-area').classList.remove('hidden');
+        }
+
+        // ================= RENDER HOME =================
+        function renderHome() {
+            const grid = document.getElementById('products-grid');
+            grid.innerHTML = '';
+            
+            products.forEach(p => {
+                // Rujukan ke folder assets
+                const img = p.images?.[0] || 'https://via.placeholder.com/800?text=Gambar+Kosong';
+                grid.innerHTML += `
+                    <div class="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all cursor-pointer" onclick="openProductModal('${p.id}')">
+                        <img src="${img}" class="w-full h-64 object-cover bg-gray-100" onerror="this.src='https://via.placeholder.com/800?text=Foto+Tidak+Ditemukan'">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold font-serif mb-2 truncate">${p.name}</h3>
+                            <div class="flex justify-between items-center mt-4">
+                                <span class="text-brand-gold font-bold text-lg">${formatRupiah(p.price)}</span>
+                                <button onclick="event.stopPropagation(); fastAddToCart('${p.id}')" class="bg-brand-green text-white w-10 h-10 rounded-full flex items-center justify-center hover:bg-brand-gold"><i class="fa-solid fa-plus"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+
+        // ================= MODAL =================
+        let currentModalProduct = null;
+        function openProductModal(id) {
+            currentModalProduct = products.find(p => p.id === id);
+            if(!currentModalProduct) return;
+            document.getElementById('modal-name').innerText = currentModalProduct.name;
+            document.getElementById('modal-price').innerText = formatRupiah(currentModalProduct.price);
+            document.getElementById('modal-desc').innerText = currentModalProduct.description;
+            document.getElementById('modal-main-image').src = currentModalProduct.images?.[0] || '';
+            
+            const modal = document.getElementById('product-modal');
+            modal.classList.remove('hidden');
+            setTimeout(() => modal.classList.remove('opacity-0'), 10);
+        }
+        function closeProductModal() {
+            const modal = document.getElementById('product-modal');
+            modal.classList.add('opacity-0');
+            setTimeout(() => modal.classList.add('hidden'), 300);
+        }
+
+        // ================= CART =================
+        function fastAddToCart(id) {
+            const p = products.find(i => i.id === id);
+            if(p) { addToCart(p, 1); alert("Masuk ke keranjang!"); }
+        }
+        function addToCartFromModal() {
+            if(currentModalProduct) { addToCart(currentModalProduct, 1); closeProductModal(); alert("Masuk ke keranjang!"); }
+        }
+        function addToCart(p, q) {
+            const ex = cart.find(i => i.id === p.id);
+            if(ex) ex.qty += q; else cart.push({...p, qty: q});
+            localStorage.setItem('casacurva_cart', JSON.stringify(cart));
+            renderCart(); updateCartBadge();
+        }
+        function removeFromCart(id) {
+            cart = cart.filter(i => i.id !== id);
+            localStorage.setItem('casacurva_cart', JSON.stringify(cart));
+            renderCart(); updateCartBadge();
+        }
+        function updateCartBadge() {
+            const b = document.getElementById('cart-badge');
+            const t = cart.reduce((s, i) => s + i.qty, 0);
+            if(t > 0) { b.innerText = t; b.classList.remove('hidden'); b.classList.add('flex'); }
+            else { b.classList.add('hidden'); b.classList.remove('flex'); }
+        }
+        function renderCart() {
+            const cont = document.getElementById('cart-items-container');
+            if(cart.length === 0) {
+                document.getElementById('empty-cart').classList.remove('hidden');
+                document.getElementById('cart-content').classList.add('hidden');
+                return;
+            }
+            document.getElementById('empty-cart').classList.add('hidden');
+            document.getElementById('cart-content').classList.remove('hidden');
+            document.getElementById('cart-content').classList.add('grid');
+            cont.innerHTML = ''; let tot = 0;
+            
+            cart.forEach(item => {
+                const dbProduct = products.find(p => p.id === item.id);
+                const currentPrice = dbProduct ? dbProduct.price : item.price;
+                
+                tot += (currentPrice * item.qty);
+                const img = item.images?.[0] || 'https://via.placeholder.com/150';
+                cont.innerHTML += `
+                    <div class="bg-white p-4 rounded-2xl flex items-center gap-4 border border-gray-100">
+                        <img src="${img}" class="w-20 h-20 object-cover rounded-xl bg-gray-100" onerror="this.src='https://via.placeholder.com/150?text=Gambar'">
+                        <div class="flex-grow">
+                            <h4 class="font-bold text-brand-green">${item.name}</h4>
+                            <p class="text-sm font-bold text-brand-gold">${formatRupiah(currentPrice)} x ${item.qty}</p>
+                        </div>
+                        <button onclick="removeFromCart('${item.id}')" class="text-red-500 p-2"><i class="fa-solid fa-trash-can"></i></button>
+                    </div>
+                `;
+            });
+            document.getElementById('cart-total-price').innerText = formatRupiah(tot);
+        }
+        function checkoutWA() {
+            if(cart.length === 0) return;
+            let t = "*Halo Admin Casa Curva*, saya memesan:\n\n"; let tot = 0;
+            cart.forEach((i, x) => {
+                const dbProduct = products.find(p => p.id === i.id);
+                const currentPrice = dbProduct ? dbProduct.price : i.price;
+                const sub = currentPrice * i.qty; tot += sub;
+                t += `${x+1}. *${i.name}*\n   ↳ ${i.qty} x ${formatRupiah(currentPrice)}\n   ↳ Sub: ${formatRupiah(sub)}\n\n`;
+            });
+            t += `*TOTAL: ${formatRupiah(tot)}*\n\nMohon info ketersediaan.`;
+            window.open(`https://wa.me/6283825770066?text=${encodeURIComponent(t)}`, '_blank');
+        }
+
+        // ================= ADMIN JSON GENERATOR =================
+        function generateJSON(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('p-name').value;
+            const price = parseInt(document.getElementById('p-price').value);
+            const qty = parseInt(document.getElementById('p-qty').value);
+            const desc = document.getElementById('p-desc').value;
+            const imageName = document.getElementById('p-image-name').value.trim();
+            
+            // Format format file agar tidak salah masuk folder
+            const formattedImagePath = "assets/" + imageName;
+            
+            // Buat objek produk
+            const newProduct = {
+                id: Date.now().toString(),
+                name: name,
+                price: price,
+                qty: qty,
+                description: desc,
+                images: [formattedImagePath]
+            };
+
+            // Ubah jadi teks JSON (indentasi 2 spasi agar rapi)
+            const jsonText = JSON.stringify(newProduct, null, 2);
+
+            document.getElementById('json-output').value = jsonText;
+            document.getElementById('cek-nama-file').innerText = imageName;
+            
+            document.getElementById('json-result-area').classList.remove('hidden');
+        }
+
+        function copyJSON() {
+            const textarea = document.getElementById('json-output');
+            textarea.select();
+            document.execCommand('copy');
+            alert("Kode JSON berhasil di-copy! Silakan paste ke data.json di GitHub.");
+        }
+    </script>
+</body>
+</html>
