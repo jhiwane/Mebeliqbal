@@ -734,12 +734,12 @@
 
         function checkoutWA() {
             if(cart.length === 0) return;
-            let msg = "Halo Tim Casa Curva, saya sangat tertarik dengan koleksi furnitur Anda yang elegan! ✨\n\nBerikut karya yang ingin saya pesan:\n\n";
+            let msg = "Halo Tim Casa Curva, saya sangat tertarik dengan koleksi furnitur Anda ✨n\nBerikut produk yang ingin saya pesan:\n\n";
             cart.forEach((item) => {
                 const dbProduct = products.find(p => p.id === item.id) || item;
                 msg += `🛋️ *${dbProduct.name}*\n   💰 Harga: ${formatRupiah(dbProduct.price)}\n   📦 Jumlah: ${item.qty} unit\n\n`;
             });
-            msg += "Mohon bantuannya untuk informasi lebih lanjut mengenai ketersediaan stok dan proses pengirimannya ya. Terima kasih banyak! 🌟";
+            msg += "Mohon bantuannya untuk informasi lebih lanjut mengenai ketersediaan stok dan proses pengirimannya ya. Terima kasih banyak!";
             window.open(`https://wa.me/6283825770066?text=${encodeURIComponent(msg)}`, '_blank');
         }
 
