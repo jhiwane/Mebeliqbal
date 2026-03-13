@@ -734,7 +734,7 @@
 
         function checkoutWA() {
             if(cart.length === 0) return;
-            let msg = "Halo Tim Casa Curva, saya sangat tertarik dengan koleksi furnitur Anda ✨n\nBerikut produk yang ingin saya pesan:\n\n";
+            let msg = "Halo Tim Casa Curva, saya sangat tertarik dengan koleksi furnitur Anda ✨\n\nBerikut produk yang ingin saya pesan:\n\n";
             cart.forEach((item) => {
                 const dbProduct = products.find(p => p.id === item.id) || item;
                 msg += `🛋️ *${dbProduct.name}*\n   💰 Harga: ${formatRupiah(dbProduct.price)}\n   📦 Jumlah: ${item.qty} unit\n\n`;
